@@ -1,2 +1,2 @@
 # ig-website-ip
-Websites aller Ihre Pflege GmbH Filialen
+Websites aller Ihre Pflege Filialen
