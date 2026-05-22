@@ -104,6 +104,12 @@ dist
 # vitepress cache directory
 **/.vitepress/cache
 
+# Astro generated files
+.astro/
+
+# Local Codex helper logs
+.codex/
+
 # Docusaurus cache and generated files
 .docusaurus
 

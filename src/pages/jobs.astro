@@ -1,0 +1,118 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { jobs } from "../data/jobs";
+
+const applyHref = (contact: string, title: string) => `mailto:${contact}?subject=${encodeURIComponent(`Bewerbung: ${title}`)}`;
+const firstSentence = (description: string) => {
+  const sentence = description.match(/^[^.]+[.]/)?.[0];
+  return sentence ?? description;
+};
+---
+
+<BaseLayout
+  title="Jobs"
+  description="Arbeiten bei Ihre Pflege. Aktuelle Stellenangebote in der ambulanten Pflege in Bayern."
+>
+  <Nav />
+  <main>
+    <section class="page-hero">
+      <div class="page-hero__inner container">
+        <p class="eyebrow">Karriere</p>
+        <h1>Arbeiten bei Ihre Pflege</h1>
+        <p>
+          Pflege ist sinnvolle Arbeit. Wir suchen Menschen, die gerne pflegen und Teil eines verlässlichen Teams werden
+          möchten: in Voll- oder Teilzeit, als Fachkraft oder Quereinsteiger.
+        </p>
+      </div>
+    </section>
+
+    <section class="jobs section">
+      <div class="jobs__inner container">
+        <div class="job-list">
+          {jobs.map((job) => (
+            <article class="job-card card">
+              <div class="job-card__content">
+                <h3>{job.title}</h3>
+                <p class="job-card__entity">{job.entity}</p>
+                <p class="job-card__meta">
+                  {job.type} · {job.department}
+                </p>
+                <p class="job-card__excerpt">{firstSentence(job.description)}</p>
+              </div>
+              <a class="btn-primary" href={applyHref(job.contact, job.title)}>Jetzt bewerben</a>
+            </article>
+          ))}
+        </div>
+        <p class="jobs__note">
+          Sie finden keine passende Stelle? Schreiben Sie uns trotzdem:
+          <a href="mailto:jobs@ihre-pflege.de">jobs@ihre-pflege.de</a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .jobs {
+    background: var(--white);
+  }
+
+  .jobs__inner {
+    max-width: 970px;
+  }
+
+  .job-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .job-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .job-card h3 {
+    margin-bottom: 0.35rem;
+    font-size: 1.45rem;
+  }
+
+  .job-card__entity {
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  .job-card__meta {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .job-card__excerpt {
+    margin-top: 0.85rem;
+    max-width: 62ch;
+    line-height: 1.75;
+  }
+
+  .jobs__note {
+    margin-top: 2rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .jobs__note a {
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  @media (max-width: 720px) {
+    .job-card {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  }
+</style>

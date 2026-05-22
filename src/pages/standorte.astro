@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { locations } from "../data/locations";
+
+const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
+---
+
+<BaseLayout
+  title="Standorte"
+  description="Ihre Pflege ist an mehreren Standorten in Bayern vertreten. Finden Sie den passenden ambulanten Pflegedienst in Ihrer Nähe."
+>
+  <Nav />
+  <main>
+    <section class="page-hero">
+      <div class="page-hero__inner container">
+        <p class="eyebrow">Unsere Standorte</p>
+        <h1>Ambulante Pflege in Ihrer Nähe</h1>
+        <p>
+          Ihre Pflege ist an mehreren Standorten in Bayern vertreten. Alle Standorte arbeiten nach denselben
+          Qualitätsstandards: verlässlich, persönlich und zugelassen bei allen Kranken- und Pflegekassen.
+        </p>
+      </div>
+    </section>
+
+    <section class="locations section">
+      <div class="container">
+        <div class="location-grid">
+          {locations.map((location) => (
+            <article class="location-card card">
+              <h3>{location.name}</h3>
+              <p class="location-card__address">{location.address}</p>
+              <a class="location-card__phone" href={phoneHref(location.phone)}>{location.phone}</a>
+              <a class="location-card__email" href={`mailto:${location.email}`}>{location.email}</a>
+              <p class="location-card__area">Einzugsgebiet: {location.serviceArea}</p>
+              <div class="location-card__action">
+                <a class="btn-ghost" href={`mailto:${location.email}`}>Anfrage senden</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .locations {
+    background: var(--white);
+  }
+
+  .location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .location-card {
+    padding: 1.75rem;
+  }
+
+  .location-card h3 {
+    margin-bottom: 0.8rem;
+    font-size: 1.55rem;
+  }
+
+  .location-card__address {
+    margin-bottom: 0.85rem;
+  }
+
+  .location-card__phone,
+  .location-card__email {
+    display: block;
+    width: fit-content;
+    line-height: 1.8;
+  }
+
+  .location-card__phone {
+    margin-top: 0.85rem;
+    color: var(--teal);
+    font-family: "Lora", Georgia, serif;
+    font-size: 1.55rem;
+    line-height: 1.8;
+  }
+
+  .location-card__email {
+    color: var(--text-mid);
+  }
+
+  .location-card__area {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .location-card__action {
+    margin-top: 1.3rem;
+  }
+</style>

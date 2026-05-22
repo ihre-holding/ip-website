@@ -1,0 +1,102 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <a class="site-footer__logo" href="/" aria-label="Ihre Pflege Startseite">
+        <span class="site-footer__brand-main">Ihre</span>
+        <span class="site-footer__brand-sub">Pflege</span>
+      </a>
+      <nav class="site-footer__links" aria-label="Fußnavigation">
+        <a href="/standorte">Standorte</a>
+        <a href="/jobs">Jobs</a>
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
+        <a href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
+      </nav>
+    </div>
+    <p class="site-footer__bottom">&copy; 2025 Ihre Pflege</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy);
+    color: var(--text-muted);
+    padding-block: 3rem 1.5rem;
+  }
+
+  .site-footer__inner {
+    width: 100%;
+    max-width: 1100px;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 5vw, 3.5rem);
+  }
+
+  .site-footer__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .site-footer__logo {
+    display: inline-flex;
+    align-items: baseline;
+    flex: 0 0 auto;
+    gap: 0.4rem;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .site-footer__brand-main,
+  .site-footer__brand-sub {
+    font-family: "Lora", Georgia, serif;
+    font-weight: 600;
+  }
+
+  .site-footer__brand-main {
+    font-size: 1.45rem;
+  }
+
+  .site-footer__brand-sub {
+    font-size: 1.7rem;
+  }
+
+  .site-footer__links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+
+  .site-footer__links a {
+    color: var(--text-muted);
+    transition: color 160ms ease;
+  }
+
+  .site-footer__links a:hover,
+  .site-footer__links a:focus-visible {
+    color: var(--white);
+  }
+
+  .site-footer__bottom {
+    padding-top: 1.35rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .site-footer__top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .site-footer__links {
+      justify-content: flex-start;
+    }
+  }
+</style>

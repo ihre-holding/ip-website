@@ -1,0 +1,67 @@
+<div class="service-grid">
+  <article class="service-card card">
+    <svg aria-hidden="true" viewBox="0 0 32 32">
+      <circle cx="16" cy="10" r="5" />
+      <path d="M7 28c.8-6 4-10 9-10s8.2 4 9 10H7Z" />
+    </svg>
+    <h3>Grundpflege</h3>
+    <p>Unterstützung bei Körperpflege, Ernährung und Mobilität, angepasst an den individuellen Bedarf im häuslichen Umfeld.</p>
+  </article>
+
+  <article class="service-card card">
+    <svg aria-hidden="true" viewBox="0 0 32 32">
+      <rect x="14" y="6" width="4" height="20" rx="1" />
+      <rect x="6" y="14" width="20" height="4" rx="1" />
+      <path d="M8 7a4 4 0 0 1 8 0v1h-3V7a1 1 0 0 0-2 0v4a7 7 0 0 1-7 7H3v-3h1a4 4 0 0 0 4-4V7Z" />
+    </svg>
+    <h3>Behandlungspflege</h3>
+    <p>Durchführung ärztlich verordneter Maßnahmen wie Medikamentengabe, Verbandswechsel und Kontrolle von Vitalwerten.</p>
+  </article>
+
+  <article class="service-card card">
+    <svg aria-hidden="true" viewBox="0 0 32 32">
+      <path d="M16 27S5 20.8 5 12.6A5.7 5.7 0 0 1 15 8.8l1 1 1-1a5.7 5.7 0 0 1 10 3.8C27 20.8 16 27 16 27Z" />
+    </svg>
+    <h3>Betreuung</h3>
+    <p>Individuelle Begleitung und Aktivierung im Alltag: durch Vorlesen, Spaziergänge oder gemeinsames Kochen.</p>
+  </article>
+
+  <article class="service-card card">
+    <svg aria-hidden="true" viewBox="0 0 32 32">
+      <path d="M6 6h20v14H12l-6 5V6Z" />
+      <circle cx="13" cy="13" r="1.6" fill="#FFFFFF" />
+      <circle cx="19" cy="13" r="1.6" fill="#FFFFFF" />
+    </svg>
+    <h3>Beratungseinsätze</h3>
+    <p>Pflichtbesuch für Pflegegeldempfänger ab Pflegegrad 2, direkt bei Ihnen zu Hause, kostenlos und unverbindlich.</p>
+  </article>
+</div>
+
+<style>
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    padding: 1.45rem;
+  }
+
+  .service-card svg {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 0.95rem;
+    fill: var(--teal);
+  }
+
+  .service-card h3 {
+    margin-bottom: 0.55rem;
+    font-size: 1.22rem;
+  }
+
+  .service-card p {
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+</style>
