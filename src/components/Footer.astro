@@ -1,9 +1,8 @@
 <footer class="site-footer">
-  <div class="site-footer__inner">
+  <div class="container site-footer__inner">
     <div class="site-footer__top">
-      <a class="site-footer__logo" href="/" aria-label="Ihre Pflege Startseite">
-        <span class="site-footer__brand-main">Ihre</span>
-        <span class="site-footer__brand-sub">Pflege</span>
+      <a class="footer-logo" href="/" aria-label="Ihre Pflege Startseite">
+        <img class="footer-logo__image" src="/IP-full-logo.png" alt="Ihre Pflege" width="180" height="58" />
       </a>
       <nav class="site-footer__links" aria-label="Fußnavigation">
         <a href="/standorte">Standorte</a>
@@ -21,14 +20,11 @@
   .site-footer {
     background: var(--navy);
     color: var(--text-muted);
-    padding-block: 3rem 1.5rem;
+    padding-block: 3rem;
   }
 
   .site-footer__inner {
     width: 100%;
-    max-width: 1100px;
-    margin-inline: auto;
-    padding-inline: clamp(1.5rem, 5vw, 3.5rem);
   }
 
   .site-footer__top {
@@ -36,45 +32,35 @@
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .site-footer__logo {
+  .footer-logo {
     display: inline-flex;
-    align-items: baseline;
-    flex: 0 0 auto;
-    gap: 0.4rem;
-    color: var(--teal);
-    line-height: 1;
+    height: 58px;
+    overflow: hidden;
+    text-decoration: none;
   }
 
-  .site-footer__brand-main,
-  .site-footer__brand-sub {
-    font-family: "Lora", Georgia, serif;
-    font-weight: 600;
-  }
-
-  .site-footer__brand-main {
-    font-size: 1.45rem;
-  }
-
-  .site-footer__brand-sub {
-    font-size: 1.7rem;
+  .footer-logo__image {
+    height: 100%;
+    object-fit: contain;
+    width: auto;
   }
 
   .site-footer__links {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    font-size: 0.9rem;
+    flex-wrap: nowrap;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    font-size: 0.82rem;
   }
 
   .site-footer__links a {
     color: var(--text-muted);
-    transition: color 160ms ease;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 180ms ease;
   }
 
   .site-footer__links a:hover,
@@ -83,9 +69,11 @@
   }
 
   .site-footer__bottom {
-    padding-top: 1.35rem;
+    margin: 2rem 0 0;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text-muted);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     text-align: center;
   }
 
@@ -96,6 +84,7 @@
     }
 
     .site-footer__links {
+      flex-wrap: wrap;
       justify-content: flex-start;
     }
   }

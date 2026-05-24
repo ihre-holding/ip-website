@@ -16,23 +16,21 @@ const firstSentence = (description: string) => {
   description="Arbeiten bei Ihre Pflege. Aktuelle Stellenangebote in der ambulanten Pflege in Bayern."
 >
   <Nav />
-  <main>
-    <section class="page-hero">
-      <div class="page-hero__inner container">
-        <p class="eyebrow">Karriere</p>
-        <h1>Arbeiten bei Ihre Pflege</h1>
-        <p>
+  <main class="page-main">
+    <section class="section jobs">
+      <div class="container page-intro">
+        <p class="eyebrow" data-reveal>Karriere</p>
+        <h1 data-reveal style="--motion-delay: 80ms">Arbeiten bei Ihre Pflege</h1>
+        <p data-reveal style="--motion-delay: 160ms">
           Pflege ist sinnvolle Arbeit. Wir suchen Menschen, die gerne pflegen und Teil eines verlässlichen Teams werden
           möchten: in Voll- oder Teilzeit, als Fachkraft oder Quereinsteiger.
         </p>
       </div>
-    </section>
 
-    <section class="jobs section">
       <div class="jobs__inner container">
         <div class="job-list">
-          {jobs.map((job) => (
-            <article class="job-card card">
+          {jobs.map((job, index) => (
+            <article class="job-card card" data-reveal style={`--motion-delay: ${index * 100}ms`}>
               <div class="job-card__content">
                 <h3>{job.title}</h3>
                 <p class="job-card__entity">{job.entity}</p>
@@ -56,12 +54,8 @@ const firstSentence = (description: string) => {
 </BaseLayout>
 
 <style>
-  .jobs {
-    background: var(--white);
-  }
-
   .jobs__inner {
-    max-width: 970px;
+    margin-top: 2.5rem;
   }
 
   .job-list {
@@ -78,8 +72,9 @@ const firstSentence = (description: string) => {
   }
 
   .job-card h3 {
-    margin-bottom: 0.35rem;
-    font-size: 1.45rem;
+    margin: 0 0 1rem;
+    font-size: 1.65rem;
+    line-height: 1.15;
   }
 
   .job-card__entity {

@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import HeroLineArt from "../components/HeroLineArt.astro";
 import { locations } from "../data/locations";
 
 const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
@@ -10,35 +11,20 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 <BaseLayout>
   <Nav />
   <main>
-    <section class="hero section" id="hero">
-      <svg
-        class="hero__ecg"
-        viewBox="0 0 1440 160"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-        preserveAspectRatio="none"
-      >
-        <polyline
-          class="hero__ecg-line"
-          points="0,80 700,80 780,80 820,140 880,10 940,80 1440,80"
-          fill="none"
-          stroke="#00B4CC"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <HeroLineArt />
       <div class="hero__inner container">
         <div class="hero__content">
-          <h1>
-            Gut versorgt zu Hause.<br />
-            <span class="hero__h1-teal">Wir sind da, wenn Sie uns brauchen.</span>
+          <h1 id="hero-title" class="motion-hero-item" style="--motion-delay: 0ms">
+            <span class="hero__h1-line">Gut versorgt zu Hause.</span>
+            <span class="hero__h1-line hero__h1-teal">Wir sind da,</span>
+            <span class="hero__h1-line hero__h1-teal">wenn Sie uns brauchen.</span>
           </h1>
-          <p class="hero__text">
+          <p class="hero__text motion-hero-item" style="--motion-delay: 100ms">
             Ihre Pflege bietet ambulante Pflege mit Herz und Verlässlichkeit, seit 1997. Für Patienten und Angehörige,
             die Unterstützung zu Hause brauchen. Und für Pflegekräfte, die sinnvoll arbeiten möchten.
           </p>
-          <div class="hero__actions">
+          <div class="hero__actions motion-hero-item" style="--motion-delay: 220ms" aria-label="Primäre Aktionen">
             <a class="btn-primary" href="#kontakt">Pflege anfragen</a>
             <a class="btn-ghost" href="/jobs">Stellenangebote ansehen</a>
           </div>
@@ -48,13 +34,13 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 
     <section class="about section" id="ueber-uns">
       <div class="about__inner container">
-        <p class="eyebrow">Über uns</p>
-        <h2>Seit 1997 für Menschen da</h2>
-        <p>
+        <p class="eyebrow" data-reveal>Über uns</p>
+        <h2 data-reveal style="--motion-delay: 80ms">Seit 1997 für Menschen da</h2>
+        <p data-reveal style="--motion-delay: 160ms">
           Was 1997 in Bayern begann, ist heute eine wachsende Gruppe ambulanter Pflegedienste. Unser Ziel war damals wie
           heute dasselbe: Menschen ein selbstbestimmtes Leben zu Hause ermöglichen, mit der Pflege, die sie verdienen.
         </p>
-        <p>
+        <p data-reveal style="--motion-delay: 240ms">
           Wir sind bei allen Kranken- und Pflegekassen zugelassen und erbringen Leistungen der häuslichen Krankenpflege
           und der ambulanten Pflege im Rahmen der bestehenden Versorgungsverträge.
         </p>
@@ -64,15 +50,15 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     <section class="services section" id="leistungen">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Was wir bieten</p>
-          <h2>Unsere Leistungen</h2>
-          <p>
+          <p class="eyebrow" data-reveal>Was wir bieten</p>
+          <h2 data-reveal style="--motion-delay: 80ms">Unsere Leistungen</h2>
+          <p data-reveal style="--motion-delay: 160ms">
             Wir entwickeln gemeinsam mit Ihnen ein individuelles Pflegekonzept, abgestimmt auf Ihre Bedürfnisse und die
             Ihrer Angehörigen. Sprechen Sie uns an, wir beraten Sie gerne persönlich.
           </p>
         </div>
         <div id="leistungen-grid">
-          <article class="service-card card">
+          <article class="service-card card" data-reveal style="--motion-delay: 0ms">
             <svg aria-hidden="true" viewBox="0 0 32 32">
               <circle cx="16" cy="10" r="5" />
               <path d="M7 28c.8-6 4-10 9-10s8.2 4 9 10H7Z" />
@@ -81,7 +67,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
             <p>Unterstützung bei Körperpflege, Ernährung und Mobilität, angepasst an den individuellen Bedarf im häuslichen Umfeld.</p>
           </article>
 
-          <article class="service-card card">
+          <article class="service-card card" data-reveal style="--motion-delay: 120ms">
             <svg aria-hidden="true" viewBox="0 0 32 32">
               <rect x="14" y="6" width="4" height="20" rx="1" />
               <rect x="6" y="14" width="20" height="4" rx="1" />
@@ -91,7 +77,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
             <p>Durchführung ärztlich verordneter Maßnahmen wie Medikamentengabe, Verbandswechsel und Kontrolle von Vitalwerten.</p>
           </article>
 
-          <article class="service-card card">
+          <article class="service-card card" data-reveal style="--motion-delay: 240ms">
             <svg aria-hidden="true" viewBox="0 0 32 32">
               <path d="M16 27S5 20.8 5 12.6A5.7 5.7 0 0 1 15 8.8l1 1 1-1a5.7 5.7 0 0 1 10 3.8C27 20.8 16 27 16 27Z" />
             </svg>
@@ -99,7 +85,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
             <p>Individuelle Begleitung und Aktivierung im Alltag: durch Vorlesen, Spaziergänge oder gemeinsames Kochen.</p>
           </article>
 
-          <article class="service-card card">
+          <article class="service-card card" data-reveal style="--motion-delay: 360ms">
             <svg aria-hidden="true" viewBox="0 0 32 32">
               <path d="M6 6h20v14H12l-6 5V6Z" />
               <circle cx="13" cy="13" r="1.6" fill="#FFFFFF" />
@@ -114,25 +100,25 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 
     <section class="jobs-strip section" id="jobs-strip">
       <div class="jobs-strip__inner container">
-        <h2>Arbeiten bei Ihre Pflege</h2>
-        <p>
+        <h2 data-reveal>Arbeiten bei Ihre Pflege</h2>
+        <p data-reveal style="--motion-delay: 100ms">
           Pflege ist mehr als ein Beruf. Es ist sinnvolle Arbeit mit echten Menschen. Wir suchen Pflegefachkräfte,
           Pflegehilfskräfte und Betreuungskräfte, die gerne Teil eines verlässlichen Teams werden möchten. Faire
           Bezahlung, flexible Einteilung und ein Team, das zusammenhält.
         </p>
-        <a class="jobs-strip__button" href="/jobs">Alle Stellen ansehen</a>
+        <a class="jobs-strip__button" data-reveal style="--motion-delay: 200ms" href="/jobs">Alle Stellen ansehen</a>
       </div>
     </section>
 
     <section class="locations-preview section" id="standorte-preview">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Unsere Standorte</p>
-          <h2>In Ihrer Nähe</h2>
+          <p class="eyebrow" data-reveal>Unsere Standorte</p>
+          <h2 data-reveal style="--motion-delay: 80ms">In Ihrer Nähe</h2>
         </div>
         <div class="location-grid">
-          {locations.map((location) => (
-            <article class="location-card card">
+          {locations.map((location, index) => (
+            <article class="location-card card" data-reveal style={`--motion-delay: ${index * 120}ms`}>
               <h3>{location.name}</h3>
               <p class="location-card__address">{location.address}</p>
               <a class="location-card__phone" href={phoneHref(location.phone)}>{location.phone}</a>
@@ -144,7 +130,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
             </article>
           ))}
         </div>
-        <div class="locations-preview__link">
+        <div class="locations-preview__link" data-reveal>
           <a href="/standorte">Alle Standorte</a>
         </div>
       </div>
@@ -153,17 +139,17 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     <section class="contact section" id="kontakt">
       <div class="contact__inner container">
         <div class="contact__content">
-          <p class="eyebrow">Kontakt</p>
-          <h2>Wir sind für Sie da</h2>
-          <p>
+          <p class="eyebrow" data-reveal>Kontakt</p>
+          <h2 data-reveal style="--motion-delay: 80ms">Wir sind für Sie da</h2>
+          <p data-reveal style="--motion-delay: 160ms">
             Sie haben Fragen zu unseren Pflegeleistungen oder möchten einen ersten Beratungstermin vereinbaren? Rufen Sie
             uns einfach an oder schreiben Sie uns. Wir melden uns schnellstmöglich bei Ihnen zurück.
           </p>
-          <a class="contact__phone" href="tel:09119606030">0911 9606030</a>
-          <a class="contact__mail" href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
-          <p class="contact__note">Montag – Freitag, 8:00 – 17:00 Uhr</p>
+          <a class="contact__phone" data-reveal style="--motion-delay: 240ms" href="tel:09119606030">0911 9606030</a>
+          <a class="contact__mail" data-reveal style="--motion-delay: 320ms" href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
+          <p class="contact__note" data-reveal style="--motion-delay: 400ms">Montag – Freitag, 8:00 – 17:00 Uhr</p>
         </div>
-        <aside class="contact__jobs">
+        <aside class="contact__jobs" data-reveal style="--motion-delay: 120ms">
           <h3>Für Pflegekräfte</h3>
           <p>
             Sie suchen einen Arbeitsplatz in der ambulanten Pflege? Schauen Sie sich unsere aktuellen Stellenangebote an
@@ -181,66 +167,64 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   .hero {
     background: var(--white);
     position: relative;
-    overflow: hidden;
-    min-height: 78svh;
-  }
-
-  .hero__ecg {
-    position: absolute;
-    top: 16%;
-    left: 22%;
-    width: 100%;
-    height: 160px;
-    opacity: 0.16;
-    pointer-events: none;
-    z-index: 0;
-    overflow: visible;
-  }
-
-  .hero__ecg-line {
-    stroke-dasharray: 1600;
-    stroke-dashoffset: 1600;
-    animation: ecg-draw 2.2s ease-out 0.3s forwards;
-  }
-
-  @keyframes ecg-draw {
-    to {
-      stroke-dashoffset: 0;
-    }
+    overflow-x: hidden;
+    overflow-y: visible;
+    isolation: isolate;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-block: clamp(7rem, 12vw, 10rem) clamp(4rem, 8vw, 7rem);
   }
 
   .hero__inner {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    width: 100%;
     display: block;
-    padding-top: clamp(4.5rem, 10vw, 8rem);
   }
 
   .hero__content {
-    max-width: 640px;
+    max-width: 66ch;
   }
 
   .hero h1 {
-    max-width: 13ch;
-    margin-bottom: 1.5rem;
-    font-size: clamp(2.35rem, 5.4vw, 4.2rem);
+    margin: 0 0 1.5rem;
+    font-size: clamp(3.4rem, 7.6vw, 6.6rem);
+    line-height: 1;
+    max-width: none;
+  }
+
+  .hero__h1-line {
+    display: block;
   }
 
   .hero__h1-teal {
     color: var(--teal);
   }
 
+  @media (min-width: 640px) {
+    .hero__h1-line {
+      white-space: nowrap;
+    }
+  }
+
+  .hero__h1-teal + .hero__h1-teal {
+    margin-top: -0.06em;
+  }
+
   .hero__text {
-    max-width: 52ch;
+    max-width: 66ch;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
     font-weight: 300;
-    line-height: 1.85;
+    line-height: 1.8;
+    margin: 0;
   }
 
   .hero__actions {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    margin-top: 2.25rem;
+    margin-top: 2.5rem;
   }
 
   .about {
@@ -252,17 +236,11 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     text-align: center;
   }
 
-  .about h2,
-  .section-heading h2 {
-    margin-bottom: 1.1rem;
-    font-size: clamp(2rem, 4vw, 3rem);
-  }
-
   .about p:not(.eyebrow) {
-    max-width: 680px;
+    max-width: 76ch;
     margin-inline: auto;
     font-weight: 300;
-    line-height: 1.85;
+    line-height: 1.8;
   }
 
   .about p + p {
@@ -270,14 +248,15 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   }
 
   .section-heading {
-    max-width: 720px;
-    margin-bottom: 2.2rem;
+    max-width: 82ch;
+    margin-bottom: 2.5rem;
   }
 
   .section-heading p:not(.eyebrow) {
-    max-width: 60ch;
+    max-width: 76ch;
     font-weight: 300;
-    line-height: 1.85;
+    line-height: 1.8;
+    margin: 0;
   }
 
   #leistungen-grid {
@@ -293,7 +272,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   }
 
   .service-card {
-    padding: 1.45rem;
+    padding: 2rem;
   }
 
   .service-card svg {
@@ -304,8 +283,9 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   }
 
   .service-card h3 {
-    margin-bottom: 0.55rem;
-    font-size: 1.22rem;
+    margin: 0 0 1rem;
+    font-size: 1.65rem;
+    line-height: 1.15;
   }
 
   .service-card p {
@@ -324,9 +304,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   }
 
   .jobs-strip h2 {
-    margin-bottom: 1rem;
     color: var(--white);
-    font-size: clamp(2rem, 4vw, 3rem);
   }
 
   .jobs-strip p {
@@ -346,7 +324,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     padding: 0.875rem 2rem;
     background: var(--white);
     color: var(--navy);
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     line-height: 1.2;
@@ -372,12 +350,13 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   }
 
   .location-card {
-    padding: 1.75rem;
+    padding: 2rem;
   }
 
   .location-card h3 {
-    margin-bottom: 0.8rem;
-    font-size: 1.45rem;
+    margin: 0 0 1rem;
+    font-size: 1.65rem;
+    line-height: 1.15;
   }
 
   .location-card__address {
@@ -394,9 +373,10 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   .location-card__phone {
     margin-top: 0.85rem;
     color: var(--teal);
-    font-family: "Lora", Georgia, serif;
-    font-size: 1.45rem;
-    line-height: 1.8;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    font-style: italic;
+    line-height: 1.2;
   }
 
   .location-card__email {
@@ -431,15 +411,10 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     align-items: start;
   }
 
-  .contact h2 {
-    margin-bottom: 1rem;
-    font-size: clamp(2rem, 4vw, 3rem);
-  }
-
   .contact__content p:not(.eyebrow) {
-    max-width: 58ch;
+    max-width: 66ch;
     font-weight: 300;
-    line-height: 1.85;
+    line-height: 1.8;
   }
 
   .contact__phone {
@@ -447,9 +422,17 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     width: fit-content;
     margin-top: 2rem;
     color: var(--teal);
-    font-family: "Lora", Georgia, serif;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    font-style: italic;
     line-height: 1.2;
+    text-decoration: none;
+  }
+
+  .contact__phone:hover,
+  .contact__phone:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
   }
 
   .contact__mail {
@@ -472,8 +455,9 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   }
 
   .contact__jobs h3 {
-    margin-bottom: 0.8rem;
-    font-size: 1.6rem;
+    margin: 0 0 1rem;
+    font-size: 1.65rem;
+    line-height: 1.15;
   }
 
   .contact__jobs p {
@@ -481,17 +465,26 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     line-height: 1.8;
   }
 
+  @media (max-width: 900px) {
+    .hero {
+      align-items: flex-start;
+    }
+  }
+
   @media (max-width: 760px) {
     .contact__inner {
       grid-template-columns: 1fr;
     }
+  }
 
-    .hero h1 {
-      max-width: 100%;
-    }
-
+  @media (max-width: 520px) {
     .hero__actions {
       flex-direction: column;
+    }
+
+    .hero__actions .btn-primary,
+    .hero__actions .btn-ghost {
+      width: 100%;
     }
   }
 </style>

@@ -1,0 +1,37 @@
+@media (prefers-reduced-motion: no-preference) {
+  .motion-hero-item {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .hero.is-hero-ready .motion-hero-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 600ms ease,
+      transform 600ms ease;
+    transition-delay: var(--motion-delay, 0ms);
+  }
+
+  [data-reveal]:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 550ms ease,
+      transform 550ms ease;
+    transition-delay: var(--motion-delay, 0ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-hero-item,
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

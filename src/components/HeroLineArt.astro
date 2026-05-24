@@ -1,0 +1,259 @@
+---
+/** Abstrahierte Nachzeichnung des IP-Line-Logos (EKG-Puls, breiter und höher). */
+const linePath =
+  'M 0 118 L 232 118 L 243 118 L 316 227 L 460 0 L 551 118 L 780 118';
+---
+
+<div class="hero-line-art" aria-hidden="true">
+  <svg
+    class="hero-line-art__svg"
+    viewBox="0 -56 800 312"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMaxYMid meet"
+  >
+    <defs>
+      <linearGradient id="ip-hero-line-stroke" x1="0%" y1="50%" x2="100%" y2="50%">
+        <stop offset="0%" stop-color="#00B4CC" stop-opacity="0.55" />
+        <stop offset="50%" stop-color="#00B4CC" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#E8F9FC" stop-opacity="1" />
+      </linearGradient>
+      <filter
+        id="ip-hero-line-glow"
+        x="-8%"
+        y="-35%"
+        width="116%"
+        height="170%"
+        color-interpolation-filters="sRGB"
+      >
+        <feGaussianBlur stdDeviation="14" />
+      </filter>
+    </defs>
+    <path class="hero-line-art__glow" pathLength="1" d={linePath} filter="url(#ip-hero-line-glow)" />
+    <path class="hero-line-art__path" pathLength="1" d={linePath} stroke="url(#ip-hero-line-stroke)" />
+  </svg>
+  <div class="hero-line-art__scrim"></div>
+</div>
+
+<script>
+  const VIEWBOX_MIN_Y = -56;
+  const VIEWBOX_HEIGHT = 312;
+  const BASELINE_Y = 118;
+  const BASELINE_RATIO = (BASELINE_Y - VIEWBOX_MIN_Y) / VIEWBOX_HEIGHT;
+
+  const getOffsetX = () => {
+    if (window.matchMedia("(max-width: 900px)").matches) return 165;
+    if (window.matchMedia("(orientation: landscape) and (max-height: 560px)").matches) return 200;
+    return 235;
+  };
+
+  /** Sichtbare Textzeile statt voller Layout-Box (wichtig bei großer Display-Schrift). */
+  const getTextLineRect = (el, which = "last") => {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const rects = [...range.getClientRects()].filter((r) => r.width > 0 && r.height > 0);
+    if (rects.length) return which === "first" ? rects[0] : rects[rects.length - 1];
+    return el.getBoundingClientRect();
+  };
+
+  const getVisualGapCenter = (lastLine, intro) => {
+    const headlineLine = getTextLineRect(lastLine, "last");
+    const introFirstLine = getTextLineRect(intro, "first");
+
+    // Exakt zwischen Unterkante „wenn Sie uns brauchen.“ und Oberkante der ersten Absatzzeile
+    return (headlineLine.bottom + introFirstLine.top) / 2;
+  };
+
+  const alignHeroLine = () => {
+    const hero = document.querySelector("#hero");
+    const svg = document.querySelector(".hero-line-art__svg");
+    const lastLine = document.querySelector(".hero__h1-line:last-child");
+    const intro = document.querySelector(".hero__text");
+    if (!hero || !svg || !lastLine || !intro) return;
+
+    const heroRect = hero.getBoundingClientRect();
+    const gapCenter = getVisualGapCenter(lastLine, intro);
+    const svgHeight = svg.getBoundingClientRect().height;
+
+    if (!svgHeight) return;
+
+    const top = gapCenter - heroRect.top - svgHeight * BASELINE_RATIO;
+    svg.style.top = `${top}px`;
+    svg.style.transform = `translate(${getOffsetX()}px, 0)`;
+  };
+
+  const scheduleAlign = () => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(alignHeroLine);
+    });
+  };
+
+  scheduleAlign();
+  window.addEventListener("resize", scheduleAlign, { passive: true });
+  document.addEventListener("astro:page-load", scheduleAlign);
+  document.fonts?.ready?.then(scheduleAlign);
+
+  const heroContent = document.querySelector(".hero__content");
+  if (heroContent && "ResizeObserver" in window) {
+    new ResizeObserver(scheduleAlign).observe(heroContent);
+  }
+
+  const hero = document.querySelector("#hero");
+  if (hero) {
+    const heroObserver = new MutationObserver(scheduleAlign);
+    heroObserver.observe(hero, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  window.setTimeout(scheduleAlign, 700);
+</script>
+
+<style>
+  .hero-line-art {
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .hero-line-art__svg {
+    aspect-ratio: 800 / 312;
+    overflow: visible;
+    height: auto;
+    max-height: 58%;
+    max-width: min(96vw, 1320px);
+    position: absolute;
+    right: 0;
+    top: 42%;
+    transform: translate(235px, 0);
+    width: auto;
+  }
+
+  .hero-line-art__path,
+  .hero-line-art__glow {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .hero-line-art__glow {
+    stroke: #00b4cc;
+    stroke-width: 9;
+    opacity: 0.58;
+  }
+
+  .hero-line-art__path {
+    stroke-width: 3.25;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: ip-hero-line-draw 11s ease-in-out infinite;
+  }
+
+  .hero-line-art__scrim {
+    background: linear-gradient(
+      90deg,
+      var(--white) 0%,
+      rgba(255, 255, 255, 0.92) 10%,
+      rgba(255, 255, 255, 0.55) 28%,
+      rgba(255, 255, 255, 0.22) 48%,
+      transparent 68%
+    );
+    inset: 0;
+    position: absolute;
+    z-index: 1;
+  }
+
+  @keyframes ip-hero-line-draw {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0.5;
+    }
+
+    42% {
+      stroke-dashoffset: 0;
+      opacity: 0.82;
+    }
+
+    58% {
+      stroke-dashoffset: 0;
+      opacity: 0.82;
+    }
+
+    100% {
+      stroke-dashoffset: -1;
+      opacity: 0.5;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-line-art__svg {
+      max-height: 44svh;
+      max-width: 100vw;
+      right: 0;
+      top: 38%;
+      transform: translate(165px, 0);
+      width: min(100vw, calc(44svh * 800 / 312));
+    }
+
+    .hero-line-art__glow {
+      opacity: 0.52;
+      stroke-width: 10;
+    }
+
+    .hero-line-art__path {
+      opacity: 1;
+      stroke-width: 3.5;
+    }
+
+    .hero-line-art__scrim {
+      background: linear-gradient(
+        90deg,
+        var(--white) 0%,
+        rgba(255, 255, 255, 0.9) 8%,
+        rgba(255, 255, 255, 0.5) 26%,
+        rgba(255, 255, 255, 0.18) 46%,
+        transparent 66%
+      );
+    }
+  }
+
+  @media (orientation: landscape) and (max-height: 560px) {
+    .hero-line-art__svg {
+      left: auto;
+      max-height: min(62dvh, 220px);
+      max-width: 100vw;
+      right: 0;
+      top: 40%;
+      transform: translate(200px, 0);
+      width: min(100vw, calc(62dvh * 800 / 312));
+    }
+
+    .hero-line-art__glow {
+      opacity: 0.5;
+      stroke-width: 8;
+    }
+
+    .hero-line-art__scrim {
+      background: linear-gradient(
+        90deg,
+        var(--white) 0%,
+        rgba(255, 255, 255, 0.88) 8%,
+        rgba(255, 255, 255, 0.48) 24%,
+        rgba(255, 255, 255, 0.16) 44%,
+        transparent 64%
+      );
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-line-art__path {
+      animation: none;
+      opacity: 0.55;
+      stroke-dashoffset: 0;
+    }
+
+    .hero-line-art__glow {
+      opacity: 0.42;
+    }
+  }
+</style>

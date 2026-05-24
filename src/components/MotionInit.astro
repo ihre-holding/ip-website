@@ -1,0 +1,45 @@
+<script>
+  const initMotion = () => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    document.querySelectorAll("[data-reveal]").forEach((el) => {
+      el.classList.remove("is-revealed");
+    });
+
+    const hero = document.querySelector(".hero");
+    hero?.classList.remove("is-hero-ready");
+
+    if (reduced) {
+      hero?.classList.add("is-hero-ready");
+      document.querySelectorAll("[data-reveal]").forEach((el) => {
+        el.classList.add("is-revealed");
+      });
+      return;
+    }
+
+    if (hero) {
+      requestAnimationFrame(() => {
+        hero.classList.add("is-hero-ready");
+      });
+    }
+
+    const reveals = document.querySelectorAll("[data-reveal]");
+    if (!reveals.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-revealed");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
+    );
+
+    reveals.forEach((el) => observer.observe(el));
+  };
+
+  initMotion();
+  document.addEventListener("astro:page-load", initMotion);
+</script>

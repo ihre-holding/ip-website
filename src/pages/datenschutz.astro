@@ -6,58 +6,65 @@ import Footer from "../components/Footer.astro";
 
 <BaseLayout title="Datenschutz" description="Datenschutzerklärung von Ihre Pflege.">
   <Nav />
-  <main>
-    <section class="page-hero">
-      <div class="page-hero__inner container">
+  <main class="page-main">
+    <section class="section">
+      <div class="container legal">
         <p class="eyebrow">Rechtliches</p>
         <h1>Datenschutzerklärung</h1>
-        <p>Informationen zur Verarbeitung personenbezogener Daten auf dieser Webseite.</p>
-      </div>
-    </section>
 
-    <section class="legal section">
-      <div class="legal__inner container">
-        <h2>Verantwortlicher</h2>
-        <p>
-          Verantwortlich für die Datenverarbeitung auf dieser Webseite ist:<br />
-          [PLATZHALTER Verantwortlicher]<br />
-          [PLATZHALTER Anschrift]<br />
-          E-Mail: [PLATZHALTER E-Mail]
-        </p>
+        <section aria-labelledby="controller-title">
+          <h2 id="controller-title">Verantwortlicher</h2>
+          <p>
+            Verantwortlich für die Datenverarbeitung auf dieser Webseite ist:<br />
+            [PLATZHALTER Verantwortlicher]<br />
+            [PLATZHALTER Anschrift]<br />
+            E-Mail: [PLATZHALTER E-Mail]
+          </p>
+        </section>
 
-        <h2>Erhebung und Verarbeitung</h2>
-        <p>
-          Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung dieser Webseite, zur Bearbeitung
-          Ihrer Anfrage oder aufgrund gesetzlicher Pflichten erforderlich ist. Die Verarbeitung erfolgt auf Grundlage der
-          Datenschutz-Grundverordnung und der jeweils geltenden nationalen Datenschutzgesetze.
-        </p>
+        <section aria-labelledby="processing-title">
+          <h2 id="processing-title">Erhebung und Verarbeitung</h2>
+          <p>
+            Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung dieser Webseite, zur Bearbeitung
+            Ihrer Anfrage oder aufgrund gesetzlicher Pflichten erforderlich ist. Die Verarbeitung erfolgt auf Grundlage der
+            Datenschutz-Grundverordnung und der jeweils geltenden nationalen Datenschutzgesetze.
+          </p>
+        </section>
 
-        <h2>Server-Logfiles</h2>
-        <p>
-          Beim Aufruf dieser Webseite werden durch den technischen Anbieter automatisch Informationen in sogenannten
-          Server-Logfiles erfasst. Dazu können Browsertyp, Betriebssystem, Referrer-URL, Uhrzeit der Serveranfrage und
-          die IP-Adresse gehören. Diese Daten dienen der technischen Sicherheit und dem stabilen Betrieb der Webseite.
-        </p>
+        <section aria-labelledby="logs-title">
+          <h2 id="logs-title">Server-Logfiles</h2>
+          <p>
+            Beim Aufruf dieser Webseite werden durch den technischen Anbieter automatisch Informationen in sogenannten
+            Server-Logfiles erfasst. Dazu können Browsertyp, Betriebssystem, Referrer-URL, Uhrzeit der Serveranfrage und
+            die IP-Adresse gehören. Diese Daten dienen der technischen Sicherheit und dem stabilen Betrieb der Webseite.
+          </p>
+        </section>
 
-        <h2>Kontaktaufnahme per E-Mail</h2>
-        <p>
-          Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage und für mögliche
-          Anschlussfragen. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter, sofern keine gesetzliche Pflicht
-          besteht.
-        </p>
+        <section aria-labelledby="email-title">
+          <h2 id="email-title">Kontaktaufnahme per E-Mail</h2>
+          <p>
+            Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage und für mögliche
+            Anschlussfragen. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter, sofern keine gesetzliche Pflicht
+            besteht.
+          </p>
+        </section>
 
-        <h2>Ihre Rechte</h2>
-        <p>
-          Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit
-          und Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten. Außerdem haben Sie das Recht, sich bei
-          einer zuständigen Datenschutzaufsichtsbehörde zu beschweren.
-        </p>
+        <section aria-labelledby="rights-title">
+          <h2 id="rights-title">Ihre Rechte</h2>
+          <p>
+            Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit
+            und Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten. Außerdem haben Sie das Recht, sich bei
+            einer zuständigen Datenschutzaufsichtsbehörde zu beschweren.
+          </p>
+        </section>
 
-        <h2>Aktualität</h2>
-        <p>
-          Diese Datenschutzerklärung enthält Platzhalter und muss vor Veröffentlichung geprüft und an die tatsächlichen
-          technischen Dienste dieser Webseite angepasst werden.
-        </p>
+        <section aria-labelledby="update-title">
+          <h2 id="update-title">Aktualität</h2>
+          <p>
+            Diese Datenschutzerklärung enthält Platzhalter und muss vor Veröffentlichung geprüft und an die tatsächlichen
+            technischen Dienste dieser Webseite angepasst werden.
+          </p>
+        </section>
       </div>
     </section>
   </main>
@@ -66,24 +73,28 @@ import Footer from "../components/Footer.astro";
 
 <style>
   .legal {
-    background: var(--white);
+    max-width: 860px;
   }
 
-  .legal__inner {
-    max-width: 820px;
+  .legal h1 {
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    line-height: 1.05;
+    margin: 0.75rem 0 2.5rem;
+  }
+
+  .legal section + section {
+    margin-top: 2.25rem;
   }
 
   .legal h2 {
-    margin-top: 2rem;
-    margin-bottom: 0.6rem;
-    font-size: 1.5rem;
-  }
-
-  .legal h2:first-child {
-    margin-top: 0;
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
   }
 
   .legal p {
-    line-height: 1.85;
+    line-height: 1.8;
+    margin: 0;
   }
 </style>
