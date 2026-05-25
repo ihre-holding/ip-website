@@ -26,7 +26,7 @@ export const locations: Location[] = [
     email: companyEmail,
     entity: "Ihre Pflege Zirndorf GmbH",
     intro: "Unser ambulanter Pflegedienst in Zirndorf betreut seit 1997 Patienten in Zirndorf und Umgebung, verlässlich, persönlich und mit echtem Engagement.",
-    serviceArea: "Zirndorf, Oberasbach, Stein, Fürth und Umgebung",
+    serviceArea: "Zirndorf, Oberasbach und Umgebung",
     since: "1997",
   },
 ];
