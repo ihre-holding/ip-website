@@ -4,7 +4,11 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 ---
 
-<BaseLayout title="Impressum" description="Impressum von Ihre Pflege.">
+<BaseLayout
+  title="Impressum"
+  description="Impressum der Ihre Pflege Zirndorf GmbH."
+  canonical="/impressum"
+>
   <Nav />
   <main class="page-main">
     <section class="section">
@@ -13,23 +17,22 @@ import Footer from "../components/Footer.astro";
         <h1>Impressum</h1>
 
         <section aria-labelledby="provider-title">
-          <h2 id="provider-title">Anbieter</h2>
+          <h2 id="provider-title">Angaben gemäß § 5 TMG</h2>
           <p>
             Ihre Pflege Zirndorf GmbH<br />
-            [PLATZHALTER Straße und Hausnummer]<br />
+            Nürnberger Str. 29A<br />
             90513 Zirndorf
           </p>
-        </section>
-
-        <section aria-labelledby="representative-title">
-          <h2 id="representative-title">Vertreten durch</h2>
-          <p>[PLATZHALTER Geschäftsführer]</p>
+          <p>
+            Vertreten durch den Geschäftsführer:<br />
+            Sven-W. Maisch
+          </p>
         </section>
 
         <section aria-labelledby="contact-title">
           <h2 id="contact-title">Kontakt</h2>
           <p>
-            Telefon: [PLATZHALTER]<br />
+            Telefon: <a href="tel:09119606030">0911 9606030</a><br />
             E-Mail: <a href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
           </p>
         </section>
@@ -38,29 +41,28 @@ import Footer from "../components/Footer.astro";
           <h2 id="register-title">Registereintrag</h2>
           <p>
             Eintragung im Handelsregister.<br />
-            Registergericht: [PLATZHALTER Amtsgericht]<br />
-            Registernummer: [PLATZHALTER HRB]
+            Registergericht: Amtsgericht Fürth<br />
+            Registernummer: HRB 6684
           </p>
         </section>
 
-        <section aria-labelledby="vat-title">
-          <h2 id="vat-title">Umsatzsteuer</h2>
-          <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: [PLATZHALTER USt-ID]</p>
-        </section>
-
-        <section aria-labelledby="content-title">
-          <h2 id="content-title">Verantwortlich für den Inhalt</h2>
+        <section aria-labelledby="liability-title">
+          <h2 id="liability-title">Haftungsausschluss</h2>
           <p>
-            [PLATZHALTER Name]<br />
-            [PLATZHALTER Anschrift]
+            Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
+            Vollständigkeit und Aktualität der Inhalte übernehmen wir jedoch keine Gewähr. Als
+            Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen
+            Gesetzen verantwortlich.
           </p>
         </section>
 
-        <section aria-labelledby="notice-title">
-          <h2 id="notice-title">Hinweis</h2>
+        <section aria-labelledby="copyright-title">
+          <h2 id="copyright-title">Urheberrecht</h2>
           <p>
-            Dieses Impressum enthält Platzhalter und muss vor Veröffentlichung rechtlich geprüft und vollständig ergänzt
-            werden.
+            Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website
+            unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet.
+            Jede Verwertung außerhalb der Grenzen des Urheberrechts bedarf der schriftlichen
+            Zustimmung des jeweiligen Autors beziehungsweise Erstellers.
           </p>
         </section>
       </div>
@@ -98,6 +100,7 @@ import Footer from "../components/Footer.astro";
 
   .legal a {
     color: var(--teal-dark);
-    font-weight: 500;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
   }
 </style>
