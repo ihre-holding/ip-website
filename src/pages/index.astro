@@ -16,13 +16,13 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
       <div class="hero__inner container">
         <div class="hero__content">
           <h1 id="hero-title" class="motion-hero-item" style="--motion-delay: 0ms">
-            <span class="hero__h1-line">Gut versorgt zu Hause.</span>
-            <span class="hero__h1-line hero__h1-teal">Wir sind da,</span>
-            <span class="hero__h1-line hero__h1-teal">wenn Sie uns brauchen.</span>
+            <span class="hero__h1-line">Ihre ambulante Pflege.</span>
+            <span class="hero__h1-line hero__h1-teal">Seit 1997 an Ihrer Seite.</span>
           </h1>
           <p class="hero__text motion-hero-item" style="--motion-delay: 100ms">
-            Ihre Pflege bietet ambulante Pflege mit Herz und Verlässlichkeit, seit 1997. Für Patienten und Angehörige,
-            die Unterstützung zu Hause brauchen. Und für Pflegekräfte, die sinnvoll arbeiten möchten.
+            Für Sie und Ihre Angehörigen bieten wir individuelle Pflege im eigenen Zuhause, verlässlich, menschlich und
+            vertraut. Für Pflegefachkräfte und Helfer bieten wir einen Arbeitsplatz mit Sinn, fairer Bezahlung und
+            einem Umfeld, in dem man gerne bleibt.
           </p>
           <div class="hero__actions motion-hero-item" style="--motion-delay: 220ms" aria-label="Primäre Aktionen">
             <a class="btn-primary" href="#kontakt">Pflege anfragen</a>
@@ -147,7 +147,11 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
           </p>
           <a class="contact__phone" data-reveal style="--motion-delay: 240ms" href="tel:09119606030">0911 9606030</a>
           <a class="contact__mail" data-reveal style="--motion-delay: 320ms" href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
-          <p class="contact__note" data-reveal style="--motion-delay: 400ms">Montag – Freitag, 8:00 – 17:00 Uhr</p>
+          <p class="contact__note" data-reveal style="--motion-delay: 400ms">
+            Montag – Freitag<br />
+            08:00–12:00<br />
+            14:00–17:00
+          </p>
         </div>
         <aside class="contact__jobs" data-reveal style="--motion-delay: 120ms">
           <h3>Für Pflegekräfte</h3>
@@ -206,10 +210,6 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     .hero__h1-line {
       white-space: nowrap;
     }
-  }
-
-  .hero__h1-teal + .hero__h1-teal {
-    margin-top: -0.06em;
   }
 
   .hero__text {

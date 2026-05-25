@@ -13,9 +13,10 @@ const linePath =
     preserveAspectRatio="xMaxYMid meet"
   >
     <defs>
-      <linearGradient id="ip-hero-line-stroke" x1="0%" y1="50%" x2="100%" y2="50%">
-        <stop offset="0%" stop-color="#00B4CC" stop-opacity="0.55" />
-        <stop offset="50%" stop-color="#00B4CC" stop-opacity="0.9" />
+      <linearGradient id="ip-hero-line-stroke" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00B4CC" stop-opacity="0.28" />
+        <stop offset="35%" stop-color="#00B4CC" stop-opacity="0.52" />
+        <stop offset="50%" stop-color="#00B4CC" stop-opacity="0.78" />
         <stop offset="100%" stop-color="#E8F9FC" stop-opacity="1" />
       </linearGradient>
       <filter
@@ -26,7 +27,7 @@ const linePath =
         height="170%"
         color-interpolation-filters="sRGB"
       >
-        <feGaussianBlur stdDeviation="14" />
+        <feGaussianBlur stdDeviation="9" />
       </filter>
     </defs>
     <path class="hero-line-art__glow" pathLength="1" d={linePath} filter="url(#ip-hero-line-glow)" />
@@ -60,7 +61,7 @@ const linePath =
     const headlineLine = getTextLineRect(lastLine, "last");
     const introFirstLine = getTextLineRect(intro, "first");
 
-    // Exakt zwischen Unterkante „wenn Sie uns brauchen.“ und Oberkante der ersten Absatzzeile
+    // Exakt zwischen Unterkante der letzten Headline-Zeile und Oberkante der ersten Absatzzeile
     return (headlineLine.bottom + introFirstLine.top) / 2;
   };
 
@@ -138,8 +139,8 @@ const linePath =
 
   .hero-line-art__glow {
     stroke: #00b4cc;
-    stroke-width: 9;
-    opacity: 0.58;
+    stroke-width: 6;
+    opacity: 0.34;
   }
 
   .hero-line-art__path {
@@ -153,35 +154,37 @@ const linePath =
     background: linear-gradient(
       90deg,
       var(--white) 0%,
-      rgba(255, 255, 255, 0.92) 10%,
-      rgba(255, 255, 255, 0.55) 28%,
-      rgba(255, 255, 255, 0.22) 48%,
-      transparent 68%
+      var(--white) 24%,
+      rgba(255, 255, 255, 0.94) 36%,
+      rgba(255, 255, 255, 0.72) 52%,
+      rgba(255, 255, 255, 0.32) 66%,
+      transparent 80%
     );
     inset: 0;
     position: absolute;
     z-index: 1;
   }
 
+  /* Wie IHO: schwächere Opacity an den Enden, links durch Verlauf + Scrim weicher */
   @keyframes ip-hero-line-draw {
     0% {
       stroke-dashoffset: 1;
-      opacity: 0.5;
+      opacity: 0.34;
     }
 
     42% {
       stroke-dashoffset: 0;
-      opacity: 0.82;
+      opacity: 0.72;
     }
 
     58% {
       stroke-dashoffset: 0;
-      opacity: 0.82;
+      opacity: 0.72;
     }
 
     100% {
       stroke-dashoffset: -1;
-      opacity: 0.5;
+      opacity: 0.34;
     }
   }
 
@@ -196,12 +199,11 @@ const linePath =
     }
 
     .hero-line-art__glow {
-      opacity: 0.52;
-      stroke-width: 10;
+      opacity: 0.38;
+      stroke-width: 7;
     }
 
     .hero-line-art__path {
-      opacity: 1;
       stroke-width: 3.5;
     }
 
@@ -209,10 +211,11 @@ const linePath =
       background: linear-gradient(
         90deg,
         var(--white) 0%,
-        rgba(255, 255, 255, 0.9) 8%,
-        rgba(255, 255, 255, 0.5) 26%,
-        rgba(255, 255, 255, 0.18) 46%,
-        transparent 66%
+        var(--white) 20%,
+        rgba(255, 255, 255, 0.92) 32%,
+        rgba(255, 255, 255, 0.58) 48%,
+        rgba(255, 255, 255, 0.2) 62%,
+        transparent 76%
       );
     }
   }
@@ -229,18 +232,19 @@ const linePath =
     }
 
     .hero-line-art__glow {
-      opacity: 0.5;
-      stroke-width: 8;
+      opacity: 0.36;
+      stroke-width: 6;
     }
 
     .hero-line-art__scrim {
       background: linear-gradient(
         90deg,
         var(--white) 0%,
-        rgba(255, 255, 255, 0.88) 8%,
-        rgba(255, 255, 255, 0.48) 24%,
-        rgba(255, 255, 255, 0.16) 44%,
-        transparent 64%
+        var(--white) 16%,
+        rgba(255, 255, 255, 0.9) 28%,
+        rgba(255, 255, 255, 0.5) 44%,
+        rgba(255, 255, 255, 0.18) 60%,
+        transparent 78%
       );
     }
   }
@@ -248,12 +252,12 @@ const linePath =
   @media (prefers-reduced-motion: reduce) {
     .hero-line-art__path {
       animation: none;
-      opacity: 0.55;
+      opacity: 0.38;
       stroke-dashoffset: 0;
     }
 
     .hero-line-art__glow {
-      opacity: 0.42;
+      opacity: 0.22;
     }
   }
 </style>
