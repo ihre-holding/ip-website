@@ -1,3 +1,7 @@
+---
+import { companyEmail } from "../data/locations";
+---
+
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <div class="site-footer__top">
@@ -9,7 +13,7 @@
         <a href="/jobs">Jobs</a>
         <a href="/impressum">Impressum</a>
         <a href="/datenschutz">Datenschutz</a>
-        <a href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
+        <a href={`mailto:${companyEmail}`}>{companyEmail}</a>
       </nav>
     </div>
     <p class="site-footer__bottom">&copy; 2025 Ihre Pflege</p>

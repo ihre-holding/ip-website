@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import { companyAddressLine1, companyAddressLine2, companyEmail } from "../data/locations";
 ---
 
 <BaseLayout
@@ -25,9 +26,9 @@ import Footer from "../components/Footer.astro";
           <p>
             Sven-W. Maisch<br />
             Ihre Pflege Zirndorf GmbH<br />
-            Nürnberger Str. 29A<br />
-            90513 Zirndorf<br />
-            E-Mail: <a href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
+            {companyAddressLine1}<br />
+            {companyAddressLine2}<br />
+            E-Mail: <a href={`mailto:${companyEmail}`}>{companyEmail}</a>
           </p>
         </section>
 

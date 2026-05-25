@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import { companyAddressLine1, companyAddressLine2, companyEmail } from "../data/locations";
 ---
 
 <BaseLayout
@@ -20,8 +21,8 @@ import Footer from "../components/Footer.astro";
           <h2 id="provider-title">Angaben gemäß § 5 TMG</h2>
           <p>
             Ihre Pflege Zirndorf GmbH<br />
-            Nürnberger Str. 29A<br />
-            90513 Zirndorf
+            {companyAddressLine1}<br />
+            {companyAddressLine2}
           </p>
           <p>
             Vertreten durch den Geschäftsführer:<br />
@@ -33,7 +34,7 @@ import Footer from "../components/Footer.astro";
           <h2 id="contact-title">Kontakt</h2>
           <p>
             Telefon: <a href="tel:09119606030">0911 9606030</a><br />
-            E-Mail: <a href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
+            E-Mail: <a href={`mailto:${companyEmail}`}>{companyEmail}</a>
           </p>
         </section>
 

@@ -3,8 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import { jobs } from "../data/jobs";
+import { companyEmail } from "../data/locations";
 
-const applyHref = (contact: string, title: string) => `mailto:${contact}?subject=${encodeURIComponent(`Bewerbung: ${title}`)}`;
+const applyHref = (title: string) =>
+  `mailto:${companyEmail}?subject=${encodeURIComponent(`Bewerbung: ${title}`)}`;
 const firstSentence = (description: string) => {
   const sentence = description.match(/^[^.]+[.]/)?.[0];
   return sentence ?? description;
@@ -39,13 +41,13 @@ const firstSentence = (description: string) => {
                 </p>
                 <p class="job-card__excerpt">{firstSentence(job.description)}</p>
               </div>
-              <a class="btn-primary" href={applyHref(job.contact, job.title)}>Jetzt bewerben</a>
+              <a class="btn-primary" href={applyHref(job.title)}>Jetzt bewerben</a>
             </article>
           ))}
         </div>
         <p class="jobs__note">
           Sie finden keine passende Stelle? Schreiben Sie uns trotzdem:
-          <a href="mailto:jobs@ihre-pflege.de">jobs@ihre-pflege.de</a>
+          <a href={`mailto:${companyEmail}`}>{companyEmail}</a>
         </p>
       </div>
     </section>

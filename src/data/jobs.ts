@@ -1,3 +1,5 @@
+import { companyEmail } from "./locations";
+
 export interface Job {
   slug: string;
   title: string;
@@ -20,7 +22,7 @@ export const jobs: Job[] = [
     department: "Pflege",
     posted: "2025-01-01",
     description: "Wir suchen eine erfahrene Pflegefachkraft für unser Team in Zirndorf. Sie übernehmen die Grund- und Behandlungspflege unserer Patienten im häuslichen Umfeld und arbeiten eng mit Ärzten und Angehörigen zusammen.",
-    contact: "info@ihre-pflege-zirndorf.de",
+    contact: companyEmail,
   },
   {
     slug: "pflegehilfskraft-zirndorf",
@@ -31,6 +33,6 @@ export const jobs: Job[] = [
     department: "Pflege",
     posted: "2025-01-01",
     description: "Zur Verstärkung unseres Teams suchen wir eine Pflegehilfskraft in Teilzeit. Vorkenntnisse sind willkommen, aber nicht zwingend erforderlich. Wir begleiten Sie von Anfang an.",
-    contact: "info@ihre-pflege-zirndorf.de",
+    contact: companyEmail,
   },
 ];
