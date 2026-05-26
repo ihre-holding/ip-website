@@ -1,0 +1,194 @@
+---
+import { testimonials } from "../data/testimonials";
+
+const featured = testimonials[0];
+const moreTestimonials = testimonials.slice(1);
+---
+
+<section class="testimonials section" id="testimonials" aria-labelledby="testimonials-title">
+  <div class="container testimonials__inner">
+    <div class="section-heading testimonials__heading">
+      <p class="eyebrow" data-reveal>Google-Rezensionen</p>
+      <h2 id="testimonials-title" data-reveal style="--motion-delay: 80ms">
+        Was unsere Patienten und Angehörigen sagen
+      </h2>
+      <p data-reveal style="--motion-delay: 160ms">
+        Echte Rückmeldungen von Menschen, die unsere Arbeit im Alltag erlebt haben.
+      </p>
+    </div>
+
+    <article class="testimonial-card testimonial-card--featured card" data-reveal style="--motion-delay: 0ms">
+      <div class="testimonial-card__stars" aria-label="5 von 5 Sternen">
+        {Array.from({ length: 5 }).map(() => <span aria-hidden="true">★</span>)}
+      </div>
+      <blockquote class="testimonial-card__quote">„{featured.text}“</blockquote>
+      <div class="testimonial-card__divider" aria-hidden="true"></div>
+      <p class="testimonial-card__author">{featured.initials}</p>
+      <p class="testimonial-card__role">{featured.role}</p>
+      <div class="testimonial-card__meta">
+        <span class="testimonial-card__source">{featured.sourceLabel}</span>
+        <span class="testimonial-card__date">{featured.postedRelative}</span>
+      </div>
+    </article>
+
+    <div class="testimonials__grid">
+      {moreTestimonials.map((testimonial, index) => (
+        <article class="testimonial-card card" data-reveal style={`--motion-delay: ${(index + 1) * 120}ms`}>
+          <div class="testimonial-card__stars" aria-label="5 von 5 Sternen">
+            {Array.from({ length: 5 }).map(() => <span aria-hidden="true">★</span>)}
+          </div>
+          <blockquote class="testimonial-card__quote">„{testimonial.text}“</blockquote>
+          <div class="testimonial-card__divider" aria-hidden="true"></div>
+          <p class="testimonial-card__author">{testimonial.anonymous ? testimonial.initials : testimonial.initials}</p>
+          <p class="testimonial-card__role">{testimonial.role}</p>
+          <div class="testimonial-card__meta">
+            {testimonial.sourceUrl && !testimonial.anonymous ? (
+              <a class="testimonial-card__source" href={testimonial.sourceUrl} target="_blank" rel="noreferrer">
+                {testimonial.sourceLabel}
+              </a>
+            ) : (
+              <span class="testimonial-card__source">{testimonial.sourceLabel}</span>
+            )}
+            <span class="testimonial-card__date">{testimonial.postedRelative}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <p class="testimonials__disclaimer">
+      Auszüge aus öffentlichen Google-Bewertungen. Vollständige Rezensionen mit Verfasser-Namen sind über das öffentliche
+      Google-Profil von Ihre Pflege Zirndorf einsehbar.
+    </p>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    background: var(--warm-grey);
+  }
+
+  .testimonials__inner {
+    width: 100%;
+  }
+
+  .testimonials__heading {
+    max-width: 82ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .testimonials__heading p:not(.eyebrow) {
+    max-width: 76ch;
+    font-weight: 300;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .testimonial-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .testimonial-card--featured {
+    margin-bottom: 1.5rem;
+    padding: clamp(1.8rem, 3vw, 2.4rem);
+    background: linear-gradient(180deg, var(--white) 0%, var(--teal-light) 100%);
+    border-color: rgba(0, 180, 204, 0.2);
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .testimonial-card__stars {
+    display: flex;
+    gap: 0.2rem;
+    color: var(--teal);
+    font-size: 0.95rem;
+    line-height: 1;
+    letter-spacing: 0.1em;
+  }
+
+  .testimonial-card__quote {
+    color: var(--text-dark);
+    font-size: 1.02rem;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .testimonial-card__divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(13, 27, 42, 0.08);
+    margin-block: 0.2rem 0.1rem;
+  }
+
+  .testimonial-card__author {
+    color: var(--navy);
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .testimonial-card__role {
+    color: var(--text-mid);
+    font-size: 0.92rem;
+    margin: -0.35rem 0 0;
+  }
+
+  .testimonial-card__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin-top: 0.15rem;
+    font-size: 0.82rem;
+  }
+
+  .testimonial-card__source {
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  .testimonial-card__source:hover,
+  .testimonial-card__source:focus-visible {
+    color: var(--teal-dark);
+  }
+
+  .testimonial-card__date {
+    color: var(--text-muted);
+  }
+
+  .testimonials__disclaimer {
+    max-width: 82ch;
+    margin: 1.25rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 960px) {
+    .testimonial-card--featured {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      column-gap: 1.5rem;
+      row-gap: 0.9rem;
+    }
+
+    .testimonial-card--featured .testimonial-card__quote,
+    .testimonial-card--featured .testimonial-card__divider,
+    .testimonial-card--featured .testimonial-card__author,
+    .testimonial-card--featured .testimonial-card__role,
+    .testimonial-card--featured .testimonial-card__meta {
+      grid-column: 1 / -1;
+    }
+
+    .testimonial-card--featured .testimonial-card__quote {
+      font-size: 1.12rem;
+    }
+  }
+</style>
