@@ -52,7 +52,7 @@ export const testimonials: Testimonial[] = [
     role: 'Sohn einer Patientin',
     rating: 5,
     text:
-      'Das gesamte Pflegeteam arbeitet sehr professionell, zuverlässig und vor allem mit viel Herz und Einfühlungsvermögen. Wir koennen diesen Pflegedienst uneingeschränkt weiterempfehlen.',
+      'Das gesamte Pflegeteam arbeitet sehr professionell, zuverlässig und vor allem mit viel Herz und Einfühlungsvermögen. Wir können diesen Pflegedienst uneingeschränkt weiterempfehlen.',
     source: 'google',
     sourceLabel: 'Bewertung auf Google',
     postedRelative: 'vor 2 Monaten',
