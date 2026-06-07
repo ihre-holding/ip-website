@@ -17,7 +17,7 @@ const {
 const pageTitle = title === "Ihre Pflege" ? title : `${title} | Ihre Pflege`;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site ?? "https://ihre-pflege.de").toString();
 const siteOrigin = Astro.site ?? "https://ihre-pflege.de";
-const previewImageUrl = new URL("/IP-full-logo.png", siteOrigin).toString();
+const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
 ---
 
 <!doctype html>
@@ -43,8 +43,8 @@ const previewImageUrl = new URL("/IP-full-logo.png", siteOrigin).toString();
       href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/IP-full-logo.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/IP-full-logo.png" />
+    <link rel="icon" href="/IP-logo-line.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/IP-logo-line.png" />
   </head>
   <body>
     <slot />

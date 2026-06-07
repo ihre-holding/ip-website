@@ -21,7 +21,7 @@ export const jobs: Job[] = [
     type: "Teilzeit / Vollzeit",
     department: "Pflege",
     posted: "2026-06-05",
-    description: "Mit oder ohne Vorerfahrung. Wir begleiten Sie von Anfang an und arbeiten Sie sorgfältig ein. Auch 20 oder 25 Stunden möglich.",
+    description: "Mit oder ohne Vorerfahrung. Wir begleiten Dich von Anfang an und arbeiten Dich sorgfältig ein. Auch 20 oder 25 Stunden möglich.",
     contact: companyEmail,
   },
   {
