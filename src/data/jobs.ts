@@ -5,7 +5,7 @@ export interface Job {
   title: string;
   locationSlug: string;
   entity: string;
-  type: "Vollzeit" | "Teilzeit" | "Minijob";
+  type: "Vollzeit" | "Teilzeit" | "Teilzeit / Vollzeit" | "Minijob";
   department: string;
   posted: string;
   description: string;
@@ -18,7 +18,7 @@ export const jobs: Job[] = [
     title: "Pflegehilfskraft (m/w/d)",
     locationSlug: "zirndorf",
     entity: "Ihre Pflege Zirndorf GmbH",
-    type: "Teilzeit",
+    type: "Teilzeit / Vollzeit",
     department: "Pflege",
     posted: "2026-06-05",
     description: "Mit oder ohne Vorerfahrung. Wir begleiten Sie von Anfang an und arbeiten Sie sorgfältig ein. Auch 20 oder 25 Stunden möglich.",
@@ -29,7 +29,7 @@ export const jobs: Job[] = [
     title: "Pflegefachhelfer (m/w/d)",
     locationSlug: "zirndorf",
     entity: "Ihre Pflege Zirndorf GmbH",
-    type: "Teilzeit",
+    type: "Teilzeit / Vollzeit",
     department: "Pflege",
     posted: "2026-06-05",
     description: "Mit 1-jähriger Pflegeausbildung. Feste Touren im Raum Zirndorf, kleines Team, Leistungsbonus zusätzlich zum Tarifgehalt.",
@@ -40,7 +40,7 @@ export const jobs: Job[] = [
     title: "Exam. Pflegefachkraft (m/w/d)",
     locationSlug: "zirndorf",
     entity: "Ihre Pflege Zirndorf GmbH",
-    type: "Teilzeit",
+    type: "Teilzeit / Vollzeit",
     department: "Pflege",
     posted: "2026-06-05",
     description: "Examinierte Pflegefachkraft (Altenpflege oder Krankenpflege). Grund- und Behandlungspflege im häuslichen Umfeld, enge Zusammenarbeit mit Ärzten und Angehörigen.",
