@@ -1,0 +1,250 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { jobs } from "../../data/jobs";
+
+const benefits = [
+  "Leistungsbonus",
+  "35 Tage Urlaub",
+  "Fort- & Weiterbildung",
+  "Feste Touren",
+  "Kleines Team",
+  "Quereinsteiger willkommen",
+];
+
+const roleContent = {
+  "pflegehilfskraft-zirndorf": {
+    intro:
+      "Sie möchten in der Pflege arbeiten, haben aber noch wenig Erfahrung? Bei uns kein Problem. Wir begleiten Sie von Anfang an.",
+    expected: [
+      "Unterstützung bei der Grundpflege und Alltagsbegleitung",
+      "Begleitung unserer Patienten auf den täglichen Touren in Zirndorf und Umgebung",
+      "Dokumentation mit der Pflegesoftware (Einarbeitung inklusive)",
+      "Enger Austausch im Team und mit Angehörigen",
+    ],
+    requirements: [
+      "Führerschein Klasse B",
+      "Einwandfreies Führungszeugnis",
+      "Deutsch mindestens B1",
+      "Zuverlässigkeit und Freude am Umgang mit Menschen - Vorerfahrung kein Muss",
+    ],
+  },
+  "pflegefachhelfer-zirndorf": {
+    intro:
+      "Als Pflegefachhelfer übernehmen Sie echte Verantwortung auf den Touren, mit einem Team das Sie kennt und auf das Sie sich verlassen können.",
+    expected: [
+      "Durchführung der Grundpflege nach Pflegeplan",
+      "Unterstützung bei der Behandlungspflege unter Anleitung",
+      "Dokumentation und Qualitätssicherung",
+      "Ansprechpartner für Patienten und Angehörige auf der Tour",
+    ],
+    requirements: [
+      "Abgeschlossene 1-jährige Pflegeausbildung (Pflegefachhelfer oder Pflegeassistenz)",
+      "Führerschein Klasse B",
+      "Einwandfreies Führungszeugnis",
+      "Deutsch mindestens B1",
+    ],
+  },
+  "pflegefachkraft-zirndorf": {
+    intro:
+      "Sie sind examiniert und suchen eine Stelle mit geregelten Touren, echtem Teamzusammenhalt und fairer Bezahlung ohne Springer-Einteilung?",
+    expected: [
+      "Selbstständige Durchführung der Grund- und Behandlungspflege",
+      "Beratungseinsätze nach § 37 SGB XI",
+      "Ansprechpartner für Patienten, Angehörige und Ärzte",
+      "Dokumentation und Qualitätssicherung mit Pflegesoftware",
+    ],
+    requirements: [
+      "Abgeschlossene 3-jährige Ausbildung als Pflegefachkraft, Altenpfleger oder Gesundheits- und Krankenpfleger",
+      "Führerschein Klasse B",
+      "Einwandfreies Führungszeugnis",
+      "Deutsch mindestens B1",
+    ],
+  },
+} as const;
+
+export function getStaticPaths() {
+  return jobs.map((job) => ({
+    params: { slug: job.slug },
+  }));
+}
+
+const job = jobs.find((entry) => entry.slug === Astro.params.slug);
+
+if (!job) {
+  return new Response(null, { status: 404 });
+}
+
+const content = roleContent[job.slug as keyof typeof roleContent];
+---
+
+<BaseLayout title={job.title} description={job.description}>
+  <Nav />
+  <main class="page-main">
+    <article class="section job-detail">
+      <div class="container job-detail__inner">
+        <a class="job-detail__back" href="/jobs">Zurück zu allen Stellen</a>
+
+        <header class="job-detail__header">
+          <h1>{job.title}</h1>
+          <p class="job-detail__meta">
+            {job.entity} · {job.type}
+          </p>
+        </header>
+
+        <p class="job-detail__intro">{content.intro}</p>
+
+        <section class="job-detail__section" aria-labelledby="expected-heading">
+          <h2 id="expected-heading">Was Sie erwartet</h2>
+          <ul class="job-detail__list">
+            {content.expected.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="job-detail__section" aria-labelledby="benefits-heading">
+          <h2 id="benefits-heading">Was wir bieten</h2>
+          <div class="job-detail__benefits">
+            {benefits.map((benefit) => <span>{benefit}</span>)}
+          </div>
+        </section>
+
+        <section class="job-detail__section" aria-labelledby="requirements-heading">
+          <h2 id="requirements-heading">Was Sie mitbringen</h2>
+          <ul class="job-detail__list">
+            {content.requirements.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="job-detail__section" aria-labelledby="contact-heading">
+          <h2 id="contact-heading">Ansprechpartnerin</h2>
+          <div class="job-detail__contact">
+            <p class="job-detail__contact-name">Ipek Kuvaoglu</p>
+            <p>Personalleitung</p>
+            <a href="tel:+499119606030">0911 9606030</a>
+            <a href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
+          </div>
+        </section>
+
+        <a class="btn-primary job-detail__apply" href={`/jobs/${job.slug}/bewerben`}>Jetzt bewerben</a>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .job-detail__inner {
+    max-width: 980px;
+  }
+
+  .job-detail__back {
+    color: var(--teal);
+    display: inline-flex;
+    font-size: 0.92rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+
+  .job-detail__header {
+    margin-bottom: 2.5rem;
+  }
+
+  .job-detail__header h1 {
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    line-height: 1.05;
+    margin: 0 0 1.25rem;
+    max-width: 12ch;
+  }
+
+  .job-detail__meta {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .job-detail__intro {
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-weight: 300;
+    line-height: 1.75;
+    margin: 0 0 3rem;
+    max-width: 68ch;
+  }
+
+  .job-detail__section {
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+    margin-top: 2.25rem;
+  }
+
+  .job-detail__section h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    margin: 0 0 1.25rem;
+  }
+
+  .job-detail__list {
+    color: var(--text-mid);
+    display: grid;
+    gap: 0.85rem;
+    line-height: 1.75;
+    margin: 0;
+    max-width: 74ch;
+    padding-left: 1.2rem;
+  }
+
+  .job-detail__benefits {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+
+  .job-detail__benefits span {
+    align-items: center;
+    border: 1px solid color-mix(in srgb, var(--teal) 26%, transparent);
+    color: var(--text-mid);
+    display: inline-flex;
+    min-height: 3.75rem;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+
+  .job-detail__contact {
+    border: 1px solid var(--border);
+    display: grid;
+    gap: 0.35rem;
+    max-width: 420px;
+    padding: 1.25rem;
+  }
+
+  .job-detail__contact p {
+    margin: 0;
+  }
+
+  .job-detail__contact a {
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  .job-detail__contact-name {
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  .job-detail__apply {
+    display: flex;
+    margin-top: 3rem;
+    width: 100%;
+  }
+
+  @media (max-width: 680px) {
+    .job-detail__inner {
+      padding-inline: 1.5rem;
+    }
+
+    .job-detail__header h1 {
+      max-width: none;
+    }
+  }
+</style>

@@ -1,0 +1,409 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Nav from "../../../components/Nav.astro";
+import Footer from "../../../components/Footer.astro";
+import { jobs } from "../../../data/jobs";
+
+export function getStaticPaths() {
+  return jobs.map((job) => ({
+    params: { slug: job.slug },
+  }));
+}
+
+const job = jobs.find((entry) => entry.slug === Astro.params.slug);
+
+if (!job) {
+  return new Response(null, { status: 404 });
+}
+---
+
+<BaseLayout title={`Bewerbung ${job.title}`} description={`Schnell und unkompliziert bewerben als ${job.title}.`}>
+  <Nav />
+  <main class="page-main">
+    <section class="section apply-page">
+      <div class="container apply-page__inner">
+        <a class="apply-page__back" href={`/jobs/${job.slug}`}>Zurück zur Stelle</a>
+        <header class="apply-page__header">
+          <p class="eyebrow">Schnell & unkompliziert</p>
+          <h1>Jetzt bewerben</h1>
+          <p>{job.title}</p>
+        </header>
+        <div id="wizard" data-job-title={job.title}></div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+  const wizard = document.getElementById("wizard");
+
+  if (wizard) {
+    const jobTitle = wizard.dataset.jobTitle || "";
+    const answers = {};
+    const steps = [
+      {
+        key: "deutsch",
+        question: "Sprichst du Deutsch?",
+        options: [
+          { label: "Ja", badge: "Ja" },
+          { label: "Nein", badge: "Nein", deadEnd: true },
+        ],
+      },
+      {
+        key: "fuehrerschein",
+        question: "Hast du einen Führerschein Klasse B?",
+        options: [
+          { label: "Ja", badge: "B" },
+          { label: "Nein", badge: "Nein", deadEnd: true },
+        ],
+      },
+      {
+        key: "ausbildung",
+        question: "Was bringst du mit?",
+        options: [
+          { label: "3-jährige Ausbildung (Altenpflege / Krankenpflege)", badge: "3J" },
+          { label: "1-jährige Ausbildung (Pflegefachhelfer)", badge: "1J" },
+          { label: "Keine Ausbildung in der Pflege (Quereinsteiger)", badge: "Q" },
+        ],
+      },
+      {
+        key: "verfuegbarkeit",
+        question: "Wann könntest du beginnen?",
+        options: [
+          { label: "Ab sofort", badge: "Jetzt" },
+          { label: "In 1-3 Monaten", badge: "1-3" },
+          { label: "In mehr als 3 Monaten", badge: "3+" },
+        ],
+      },
+    ];
+
+    const escapeHtml = (value) =>
+      value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    const renderProgress = (step) => `
+      <div class="wizard__progress">
+        <span>Schritt ${step} von 5</span>
+        <div class="wizard__bar" aria-hidden="true">
+          <span style="width: ${(step / 5) * 100}%"></span>
+        </div>
+      </div>
+    `;
+
+    const renderDeadEnd = () => {
+      wizard.innerHTML = `
+        <div class="wizard__message">
+          <p>Für diese Stelle sind Deutschkenntnisse erforderlich. Ruf uns gerne direkt an:</p>
+          <p class="wizard__contact-value">0911 9606030</p>
+        </div>
+      `;
+    };
+
+    const renderConfirmation = (subject, body) => {
+      wizard.innerHTML = `
+        <div class="wizard__message">
+          <p>Deine Anfrage ist vorbereitet. Sende sie bitte an:</p>
+          <p class="wizard__contact-value">info@ihre-pflege.de</p>
+          <pre>${escapeHtml(body)}</pre>
+          <button class="btn-primary wizard__copy" type="button">Text kopieren</button>
+        </div>
+      `;
+
+      wizard.querySelector(".wizard__copy")?.addEventListener("click", async () => {
+        const copyButton = wizard.querySelector(".wizard__copy");
+
+        try {
+          await navigator.clipboard.writeText(body);
+          copyButton.textContent = "Kopiert ✓";
+          window.setTimeout(() => {
+            copyButton.textContent = "Oder Text kopieren";
+          }, 2000);
+        } catch {
+          copyButton.textContent = "Bitte manuell kopieren";
+        }
+      });
+    };
+
+    const renderStep = (index) => {
+      const step = steps[index];
+      wizard.innerHTML = `
+        ${renderProgress(index + 1)}
+        <h3>${step.question}</h3>
+        <div class="wizard__options">
+          ${step.options
+            .map(
+              (option, optionIndex) => `
+                <button class="wizard__option" type="button" data-option-index="${optionIndex}">
+                  <span class="wizard__badge" aria-hidden="true">${option.badge}</span>
+                  <span>${option.label}</span>
+                </button>
+              `,
+            )
+            .join("")}
+        </div>
+      `;
+
+      wizard.querySelectorAll(".wizard__option").forEach((button) => {
+        button.addEventListener("click", () => {
+          const option = step.options[Number(button.dataset.optionIndex)];
+          button.classList.add("is-selected");
+          answers[step.key] = option.label;
+
+          window.setTimeout(() => {
+            if (option.deadEnd) {
+              renderDeadEnd();
+              return;
+            }
+
+            if (index === steps.length - 1) {
+              renderFinalStep();
+              return;
+            }
+
+            renderStep(index + 1);
+          }, 180);
+        });
+      });
+    };
+
+    const renderFinalStep = () => {
+      wizard.innerHTML = `
+        ${renderProgress(5)}
+        <h3>Wie erreichen wir dich?</h3>
+        <div class="wizard__fields">
+          <label>
+            <span>Dein Name</span>
+            <input type="text" name="name" autocomplete="name" />
+          </label>
+          <label>
+            <span>Deine Telefonnummer</span>
+            <input type="tel" name="phone" autocomplete="tel" />
+          </label>
+        </div>
+        <button class="btn-primary wizard__submit" type="button">Anfrage vorbereiten</button>
+      `;
+
+      wizard.querySelector(".wizard__submit")?.addEventListener("click", () => {
+        const name = wizard.querySelector('input[name="name"]')?.value.trim() || "";
+        const phone = wizard.querySelector('input[name="phone"]')?.value.trim() || "";
+        const body = `Hallo Ipek,
+
+ich möchte mich als ${jobTitle} bewerben.
+
+Deutsch: ${answers.deutsch || ""}
+Führerschein Klasse B: ${answers.fuehrerschein || ""}
+Ausbildung: ${answers.ausbildung || ""}
+Verfügbarkeit: ${answers.verfuegbarkeit || ""}
+Name: ${name}
+Telefon: ${phone}
+
+Bitte meldet euch bei mir. Vielen Dank.`;
+        const subject = `Bewerbung: ${jobTitle}`;
+
+        renderConfirmation(subject, body);
+      });
+    };
+
+    renderStep(0);
+  }
+</script>
+
+<style is:global>
+  .apply-page__inner {
+    max-width: 980px;
+  }
+
+  .apply-page__back {
+    color: var(--teal);
+    display: inline-flex;
+    font-size: 0.92rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+
+  .apply-page__header {
+    margin-bottom: 2rem;
+  }
+
+  .apply-page__header h1 {
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    line-height: 1.05;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .apply-page__header p:not(.eyebrow) {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  #wizard {
+    background: var(--warm-grey);
+    border-radius: 12px;
+    display: grid;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  #wizard h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .wizard__progress {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .wizard__progress span {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .wizard__bar {
+    background: rgba(13, 27, 42, 0.12);
+    height: 3px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .wizard__bar span {
+    background: var(--teal);
+    display: block;
+    height: 100%;
+    transition: width 180ms ease;
+  }
+
+  .wizard__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .wizard__option {
+    align-items: center;
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--navy);
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    font-weight: 500;
+    gap: 0.5rem;
+    justify-content: center;
+    line-height: 1.35;
+    min-height: 120px;
+    min-width: 120px;
+    padding: 1rem;
+    text-align: center;
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease;
+  }
+
+  .wizard__option:hover,
+  .wizard__option:focus-visible {
+    border-color: var(--teal);
+  }
+
+  .wizard__option.is-selected {
+    background: var(--teal-light);
+  }
+
+  .wizard__badge {
+    align-items: center;
+    border: 1px solid color-mix(in srgb, var(--teal) 34%, transparent);
+    color: var(--teal);
+    display: inline-flex;
+    font-size: 0.82rem;
+    font-weight: 500;
+    height: 2.5rem;
+    justify-content: center;
+    letter-spacing: 0.08em;
+    min-width: 2.5rem;
+    padding-inline: 0.65rem;
+    text-transform: uppercase;
+  }
+
+  .wizard__fields {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .wizard__fields label {
+    color: var(--text-mid);
+    display: grid;
+    gap: 0.35rem;
+    font-weight: 500;
+  }
+
+  .wizard__fields input {
+    border: 1px solid var(--border);
+    color: var(--navy);
+    min-height: 3.2rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .wizard__fields input:focus-visible {
+    border-color: var(--teal);
+  }
+
+  .wizard__submit,
+  .wizard__copy {
+    width: 100%;
+  }
+
+  .wizard__message {
+    background: var(--white);
+    border: 1px solid var(--border);
+    display: grid;
+    gap: 0.9rem;
+    padding: 1.25rem;
+  }
+
+  .wizard__message p {
+    margin: 0;
+  }
+
+  .wizard__contact-value {
+    color: var(--teal);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .wizard__message pre {
+    background: var(--warm-grey);
+    color: var(--text-mid);
+    font: inherit;
+    line-height: 1.6;
+    margin: 0;
+    overflow: auto;
+    padding: 1rem;
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 680px) {
+    .apply-page__inner {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #wizard {
+      padding: 1.5rem;
+    }
+
+    .wizard__option {
+      flex: 1 1 100%;
+      width: 100%;
+    }
+  }
+</style>

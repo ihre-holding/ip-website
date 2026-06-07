@@ -16,6 +16,8 @@ const {
 
 const pageTitle = title === "Ihre Pflege" ? title : `${title} | Ihre Pflege`;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site ?? "https://ihre-pflege.de").toString();
+const siteOrigin = Astro.site ?? "https://ihre-pflege.de";
+const previewImageUrl = new URL("/IP-full-logo.png", siteOrigin).toString();
 ---
 
 <!doctype html>
@@ -31,13 +33,18 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site ?? "htt
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="de_DE" />
+    <meta property="og:image" content={previewImageUrl} />
+    <meta property="og:image:alt" content="Ihre Pflege Logo" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={previewImageUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/IP-logo-line.png" type="image/png" />
+    <link rel="icon" href="/IP-full-logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/IP-full-logo.png" />
   </head>
   <body>
     <slot />
