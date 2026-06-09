@@ -28,6 +28,7 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -42,9 +43,10 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "HomeAndConstructionBusiness",
+        "@type": "MedicalBusiness",
         "name": "Ihre Pflege Zirndorf GmbH",
         "description": "Ambulanter Pflegedienst in Zirndorf seit 1997",
+        "medicalSpecialty": "Nursing",
         "url": "https://www.ihre-pflege.de",
         "telephone": "+499119606030",
         "email": "info@ihre-pflege.de",
