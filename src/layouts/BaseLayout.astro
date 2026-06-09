@@ -10,10 +10,11 @@ interface Props {
 
 const {
   title = "Ihre Pflege",
-  description = "Ihre Pflege, ambulante Pflege mit Herz und Verlässlichkeit. Für Patienten, Angehörige und Pflegekräfte in Bayern.",
+  description = "Ihre Pflege: ambulante Pflegedienste in Bayern seit 1997. Verlässlich, persönlich, zugelassen bei allen Kassen.",
   canonical,
 } = Astro.props;
 
+const brandTitle = "Ihre Pflege";
 const pageTitle = title === "Ihre Pflege" ? title : `${title} | Ihre Pflege`;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site ?? "https://ihre-pflege.de").toString();
 const siteOrigin = Astro.site ?? "https://ihre-pflege.de";
@@ -32,11 +33,32 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={brandTitle} />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:image" content={previewImageUrl} />
     <meta property="og:image:alt" content="Ihre Pflege Logo" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={previewImageUrl} />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HomeAndConstructionBusiness",
+        "name": "Ihre Pflege Zirndorf GmbH",
+        "description": "Ambulanter Pflegedienst in Zirndorf seit 1997",
+        "url": "https://www.ihre-pflege.de",
+        "telephone": "+499119606030",
+        "email": "info@ihre-pflege.de",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Nürnberger Str. 29A",
+          "addressLocality": "Zirndorf",
+          "postalCode": "90513",
+          "addressCountry": "DE"
+        },
+        "openingHours": ["Mo-Fr 08:00-12:00", "Mo-Fr 14:00-17:00"],
+        "areaServed": ["Zirndorf", "Oberasbach", "Stein", "Fürth"]
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
