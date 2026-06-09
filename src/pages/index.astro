@@ -4,9 +4,6 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import HeroLineArt from "../components/HeroLineArt.astro";
 import Testimonials from "../components/Testimonials.astro";
-import { companyAddress, companyEmail, locations } from "../data/locations";
-
-const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 ---
 
 <BaseLayout
@@ -28,7 +25,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
             einem Umfeld, in dem man gerne bleibt.
           </p>
           <div class="hero__actions motion-hero-item" style="--motion-delay: 220ms" aria-label="Primäre Aktionen">
-            <a class="btn-primary" href="#kontakt">Pflege anfragen</a>
+            <a class="btn-primary" href="/standorte">Pflege anfragen</a>
             <a class="btn-ghost" href="/jobs">Stellenangebote ansehen</a>
           </div>
         </div>
@@ -50,57 +47,6 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
       </div>
     </section>
 
-    <section class="services section" id="leistungen">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow" data-reveal>Was wir bieten</p>
-          <h2 data-reveal style="--motion-delay: 80ms">Unsere Leistungen</h2>
-          <p data-reveal style="--motion-delay: 160ms">
-            Jeder Mensch braucht etwas anderes. Wir schauen gemeinsam mit Ihnen, was wirklich gebraucht wird, und sind
-            dann verlässlich da. Rufen Sie uns einfach an.
-          </p>
-        </div>
-        <div id="leistungen-grid">
-          <article class="service-card card" data-reveal style="--motion-delay: 0ms">
-            <svg aria-hidden="true" viewBox="0 0 32 32">
-              <circle cx="16" cy="10" r="5" />
-              <path d="M7 28c.8-6 4-10 9-10s8.2 4 9 10H7Z" />
-            </svg>
-            <h3>Grundpflege</h3>
-            <p>Waschen, Anziehen, Essen, Mobilität. Wir helfen bei dem, was im Alltag schwerer geworden ist, und kommen täglich zu Ihnen nach Hause.</p>
-          </article>
-
-          <article class="service-card card" data-reveal style="--motion-delay: 120ms">
-            <svg aria-hidden="true" viewBox="0 0 32 32">
-              <rect x="14" y="6" width="4" height="20" rx="1" />
-              <rect x="6" y="14" width="20" height="4" rx="1" />
-              <path d="M8 7a4 4 0 0 1 8 0v1h-3V7a1 1 0 0 0-2 0v4a7 7 0 0 1-7 7H3v-3h1a4 4 0 0 0 4-4V7Z" />
-            </svg>
-            <h3>Behandlungspflege</h3>
-            <p>Medikamente, Verbände, Blutdruck, Blutzucker. Wir führen die Maßnahmen durch, die Ihr Arzt verordnet hat, direkt bei Ihnen zu Hause.</p>
-          </article>
-
-          <article class="service-card card" data-reveal style="--motion-delay: 240ms">
-            <svg aria-hidden="true" viewBox="0 0 32 32">
-              <path d="M16 27S5 20.8 5 12.6A5.7 5.7 0 0 1 15 8.8l1 1 1-1a5.7 5.7 0 0 1 10 3.8C27 20.8 16 27 16 27Z" />
-            </svg>
-            <h3>Betreuung</h3>
-            <p>Vorlesen, spazieren gehen, gemeinsam kochen. Manchmal ist Begleitung das Wichtigste. Wir sind gerne dabei.</p>
-          </article>
-
-          <article class="service-card card" data-reveal style="--motion-delay: 360ms">
-            <svg aria-hidden="true" viewBox="0 0 32 32">
-              <path d="M6 6h20v14H12l-6 5V6Z" />
-              <circle cx="13" cy="13" r="1.6" fill="#FFFFFF" />
-              <circle cx="19" cy="13" r="1.6" fill="#FFFFFF" />
-            </svg>
-            <h3>Beratungseinsätze</h3>
-            <p>Wenn Sie Pflegegeld ab Pflegegrad 2 erhalten, kommen wir regelmäßig vorbei. Kostenlos, unverbindlich, direkt bei Ihnen zu Hause. Wir erklären Ihnen gerne, wie das funktioniert.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <Testimonials />
 
     <section class="jobs-strip section" id="jobs-strip">
@@ -114,59 +60,6 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
       </div>
     </section>
 
-    <section class="locations-preview section" id="standorte-preview">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow" data-reveal>Unsere Standorte</p>
-          <h2 data-reveal style="--motion-delay: 80ms">In Ihrer Nähe</h2>
-        </div>
-        <div class="location-grid">
-          {locations.map((location, index) => (
-            <article class="location-card card" data-reveal style={`--motion-delay: ${index * 120}ms`}>
-              <h3>{location.name}</h3>
-              <p class="location-card__address">{location.address}</p>
-              <a class="location-card__phone" href={phoneHref(location.phone)}>{location.phone}</a>
-              <a class="location-card__email" href={`mailto:${location.email}`}>{location.email}</a>
-              <p class="location-card__area">Einzugsgebiet: {location.serviceArea}</p>
-              <div class="location-card__action">
-                <a class="btn-ghost" href={`mailto:${location.email}`}>Anfrage senden</a>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div class="locations-preview__link" data-reveal>
-          <a href="/standorte">Alle Standorte</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact section" id="kontakt">
-      <div class="contact__inner container">
-        <div class="contact__content">
-          <p class="eyebrow" data-reveal>Kontakt</p>
-          <h2 data-reveal style="--motion-delay: 80ms">Wir sind für Sie da</h2>
-          <p data-reveal style="--motion-delay: 160ms">
-            Sie haben Fragen oder möchten Pflege für sich oder jemanden aus Ihrer Familie anfragen? Rufen Sie uns einfach
-            an, wir hören zu und helfen Ihnen weiter.
-          </p>
-          <a class="contact__phone" data-reveal style="--motion-delay: 240ms" href="tel:09119606030">0911 9606030</a>
-          <a class="contact__mail" data-reveal style="--motion-delay: 320ms" href={`mailto:${companyEmail}`}>{companyEmail}</a>
-          <p class="contact__note" data-reveal style="--motion-delay: 400ms">
-            Montag – Freitag<br />
-            08:00–12:00<br />
-            14:00–17:00
-          </p>
-        </div>
-        <aside class="contact__jobs" data-reveal style="--motion-delay: 120ms">
-          <h3>Für Pflegekräfte</h3>
-          <p>
-            Du suchst eine Stelle in der Pflege oder möchtest neu einsteigen? Schreib uns direkt, wir melden uns bei
-            Dir.
-          </p>
-          <a class="btn-ghost" href="/jobs">Stellenangebote</a>
-        </aside>
-      </div>
-    </section>
   </main>
   <Footer />
 </BaseLayout>
@@ -263,40 +156,6 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     margin: 0;
   }
 
-  #leistungen-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-
-  @media (max-width: 600px) {
-    #leistungen-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .service-card {
-    padding: 2rem;
-  }
-
-  .service-card svg {
-    width: 22px;
-    height: 22px;
-    margin-bottom: 0.95rem;
-    fill: var(--teal);
-  }
-
-  .service-card h3 {
-    margin: 0 0 1rem;
-    font-size: 1.65rem;
-    line-height: 1.15;
-  }
-
-  .service-card p {
-    font-size: 0.96rem;
-    line-height: 1.65;
-  }
-
   .jobs-strip {
     background: var(--teal);
     color: var(--white);
@@ -343,147 +202,9 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     background: var(--teal-light);
   }
 
-  .locations-preview {
-    background: var(--warm-grey);
-  }
-
-  .location-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .location-card {
-    padding: 2rem;
-  }
-
-  .location-card h3 {
-    margin: 0 0 1rem;
-    font-size: 1.65rem;
-    line-height: 1.15;
-  }
-
-  .location-card__address {
-    margin-bottom: 0.85rem;
-  }
-
-  .location-card__phone,
-  .location-card__email {
-    display: block;
-    width: fit-content;
-    line-height: 1.8;
-  }
-
-  .location-card__phone {
-    margin-top: 0.85rem;
-    color: var(--teal);
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 4vw, 2.4rem);
-    font-style: italic;
-    line-height: 1.2;
-  }
-
-  .location-card__email {
-    color: var(--text-mid);
-  }
-
-  .location-card__area {
-    margin-top: 1rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-
-  .location-card__action {
-    margin-top: 1.3rem;
-  }
-
-  .locations-preview__link {
-    margin-top: 2rem;
-    text-align: center;
-  }
-
-  .locations-preview__link a {
-    color: var(--teal);
-    font-weight: 500;
-  }
-
-  .contact__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
-    gap: clamp(2.5rem, 6vw, 5rem);
-    align-items: start;
-  }
-
-  .contact__content p:not(.eyebrow) {
-    max-width: 66ch;
-    font-weight: 300;
-    line-height: 1.8;
-  }
-
-  .contact__phone {
-    display: block;
-    width: fit-content;
-    margin-top: 2rem;
-    color: var(--teal);
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 4vw, 2.4rem);
-    font-style: italic;
-    line-height: 1.2;
-    text-decoration: none;
-  }
-
-  .contact__phone:hover,
-  .contact__phone:focus-visible {
-    text-decoration: underline;
-    text-underline-offset: 0.18em;
-  }
-
-  .contact__mail {
-    display: block;
-    width: fit-content;
-    margin-top: 0.5rem;
-    color: var(--text-mid);
-  }
-
-  .contact__address {
-    margin-top: 0.8rem;
-    color: var(--text-mid);
-    line-height: 1.6;
-  }
-
-  .contact__note {
-    margin-top: 0.5rem;
-    color: var(--text-muted);
-    font-size: 0.92rem;
-  }
-
-  .contact__jobs {
-    padding: 2rem;
-    border-radius: 12px;
-    background: var(--warm-grey);
-  }
-
-  .contact__jobs h3 {
-    margin: 0 0 1rem;
-    font-size: 1.65rem;
-    line-height: 1.15;
-  }
-
-  .contact__jobs p {
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
-  }
-
   @media (max-width: 900px) {
     .hero {
       align-items: flex-start;
-    }
-  }
-
-  @media (max-width: 760px) {
-    .contact__inner {
-      grid-template-columns: 1fr;
     }
   }
 

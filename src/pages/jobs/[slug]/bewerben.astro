@@ -20,6 +20,7 @@ if (!job) {
 <BaseLayout title={`Bewerbung ${job.title}`} description={`Schnell und unkompliziert bewerben als ${job.title}.`}>
   <Nav />
   <main class="page-main">
+    {/* WIZARD DISABLED - keep for future use
     <section class="section apply-page">
       <div class="container apply-page__inner">
         <a class="apply-page__back" href={`/jobs/${job.slug}`}>Zurück zur Stelle</a>
@@ -31,10 +32,12 @@ if (!job) {
         <div id="wizard" data-job-title={job.title}></div>
       </div>
     </section>
+    */}
   </main>
   <Footer />
 </BaseLayout>
 
+{/* WIZARD DISABLED - keep for future use
 <script is:inline>
   const wizard = document.getElementById("wizard");
 
@@ -211,6 +214,7 @@ Bitte meldet euch bei mir. Vielen Dank.`;
     renderStep(0);
   }
 </script>
+*/}
 
 <style is:global>
   .apply-page__inner {

@@ -26,15 +26,37 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
       <div class="container locations__grid-wrap">
         <div class="location-grid">
           {locations.map((location, index) => (
-            <article class="location-card card" data-reveal style={`--motion-delay: ${index * 100}ms`}>
-              <h3>{location.name}</h3>
-              <p class="location-card__address">{location.address}</p>
-              <a class="location-card__phone" href={phoneHref(location.phone)}>{location.phone}</a>
-              <a class="location-card__email" href={`mailto:${location.email}`}>{location.email}</a>
-              <p class="location-card__area">Einzugsgebiet: {location.serviceArea}</p>
-              <div class="location-card__action">
-                <a class="btn-ghost" href={`mailto:${location.email}`}>Anfrage senden</a>
+            <article
+              class:list={["location-card", "card", { "location-card--with-image": location.slug === "zirndorf" }]}
+              data-reveal
+              style={`--motion-delay: ${index * 100}ms`}
+            >
+              <div class="location-card__content">
+                <h3>{location.name}</h3>
+                <p class="location-card__address">{location.address}</p>
+                <a class="location-card__phone" href={phoneHref(location.phone)}>{location.phone}</a>
+                <a class="location-card__email" href={`mailto:${location.email}`}>{location.email}</a>
+                {
+                  location.slug === "zirndorf" && (
+                    <p class="location-card__hours">
+                      Montag – Freitag<br />
+                      08:00 – 12:00<br />
+                      14:00 – 17:00
+                    </p>
+                  )
+                }
+                <p class="location-card__area">Einzugsgebiet: {location.serviceArea}</p>
               </div>
+              {
+                location.slug === "zirndorf" && (
+                  <img
+                    class="location-card__image"
+                    src="/images/team-zirndorf.jpg"
+                    alt="Team Ihre Pflege Zirndorf"
+                    loading="lazy"
+                  />
+                )
+              }
             </article>
           ))}
         </div>
@@ -57,6 +79,21 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 
   .location-card {
     padding: 2rem;
+  }
+
+  .location-card--with-image {
+    align-items: stretch;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+  }
+
+  .location-card__image {
+    display: block;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+    width: 100%;
   }
 
   .location-card h3 {
@@ -89,6 +126,13 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     color: var(--text-mid);
   }
 
+  .location-card__hours {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
   .location-card__area {
     margin-top: 1rem;
     color: var(--text-muted);
@@ -96,7 +140,15 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     line-height: 1.6;
   }
 
-  .location-card__action {
-    margin-top: 1.3rem;
+  @media (max-width: 720px) {
+    .location-card--with-image {
+      grid-template-columns: 1fr;
+    }
+
+    .location-card__image {
+      aspect-ratio: 16 / 9;
+      min-height: 0;
+    }
   }
+
 </style>

@@ -1,5 +1,8 @@
 ---
 const isHome = Astro.url.pathname === "/";
+const isLeistungen = Astro.url.pathname.startsWith("/leistungen");
+const isStandorte = Astro.url.pathname.startsWith("/standorte");
+const isKarriere = Astro.url.pathname.startsWith("/jobs");
 ---
 
 <header class:list={["site-nav", { "is-scrolled": !isHome }]} data-nav data-home={String(isHome)}>
@@ -21,11 +24,30 @@ const isHome = Astro.url.pathname === "/";
     </button>
 
     <nav class="site-nav__menu" aria-label="Hauptnavigation" data-nav-menu>
-      <a href="/#leistungen">Leistungen</a>
-      <a href="/standorte">Standorte</a>
-      <a href="/jobs">Jobs</a>
-      <a href="/#kontakt">Kontakt</a>
-      <a class="btn-primary site-nav__cta" href="/#kontakt">Pflege anfragen</a>
+      <a class:list={{ "is-active": isHome }} href="/" aria-current={isHome ? "page" : undefined}>
+        Startseite
+      </a>
+      <a
+        class:list={{ "is-active": isLeistungen }}
+        href="/leistungen"
+        aria-current={isLeistungen ? "page" : undefined}
+      >
+        Leistungen
+      </a>
+      <a class:list={{ "is-active": isStandorte }} href="/standorte" aria-current={isStandorte ? "page" : undefined}>
+        Standorte
+      </a>
+      <a class:list={{ "is-active": isKarriere }} href="/jobs" aria-current={isKarriere ? "page" : undefined}>
+        Karriere
+      </a>
+      <a
+        class="btn-primary site-nav__cta"
+        href="https://mfws.alphadesk.de:13153/connect/login"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Login
+      </a>
     </nav>
   </div>
 </header>
@@ -154,8 +176,13 @@ const isHome = Astro.url.pathname === "/";
   }
 
   .site-nav__menu > a:not(.site-nav__cta):hover::after,
-  .site-nav__menu > a:not(.site-nav__cta):focus-visible::after {
+  .site-nav__menu > a:not(.site-nav__cta):focus-visible::after,
+  .site-nav__menu > a:not(.site-nav__cta).is-active::after {
     transform: scaleX(1);
+  }
+
+  .site-nav__menu > a:not(.site-nav__cta).is-active {
+    color: var(--teal);
   }
 
   .site-nav__cta {

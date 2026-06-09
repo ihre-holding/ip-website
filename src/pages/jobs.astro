@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import { jobs } from "../data/jobs";
 import { companyEmail } from "../data/locations";
 ---
 
@@ -25,21 +24,22 @@ import { companyEmail } from "../data/locations";
 
       <div class="jobs__inner container">
         <div class="job-list">
-          {jobs.map((job, index) => (
-            <article class="job-card card" data-reveal style={`--motion-delay: ${index * 100}ms`}>
-              <div class="job-card__content">
-                <h3>{job.title}</h3>
-                <p class="job-card__entity">{job.entity}</p>
-                <p class="job-card__meta">
-                  {job.type} · {job.department}
-                </p>
-              </div>
-              <div class="job-card__actions">
-                <a class="btn-ghost" href={`/jobs/${job.slug}`}>Mehr erfahren</a>
-                <a class="btn-primary" href={`/jobs/${job.slug}/bewerben`}>Jetzt bewerben</a>
-              </div>
-            </article>
-          ))}
+          <article class="job-card card" data-reveal>
+            <div class="job-card__content">
+              <h3>Zirndorf</h3>
+              <p class="job-card__entity">Alle aktuellen Stellen bei Ihre Pflege Zirndorf</p>
+            </div>
+            <div class="job-card__actions">
+              <a
+                class="btn-primary"
+                href="https://mfws.alphadesk.de:13153/connect/stellen/1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Stellen entdecken
+              </a>
+            </div>
+          </article>
         </div>
         <p class="jobs__note">
           Keine passende Stelle dabei? Schreib uns trotzdem, wir freuen uns über jede Bewerbung:
@@ -54,6 +54,10 @@ import { companyEmail } from "../data/locations";
 <style>
   .jobs__inner {
     margin-top: 2.5rem;
+  }
+
+  .jobs .page-intro p {
+    max-width: none;
   }
 
   .job-list {
