@@ -78,6 +78,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   }
 
   .location-card {
+    overflow: hidden;
     padding: 2rem;
   }
 
@@ -147,6 +148,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 
     .location-card__image {
       aspect-ratio: 16 / 9;
+      height: clamp(180px, 56vw, 260px);
       min-height: 0;
     }
   }
