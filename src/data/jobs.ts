@@ -10,6 +10,7 @@ export interface Job {
   posted: string;
   description: string;
   contact: string;
+  applyUrl: string;
 }
 
 export const jobs: Job[] = [
@@ -23,6 +24,7 @@ export const jobs: Job[] = [
     posted: "2026-06-05",
     description: "Mit oder ohne Vorerfahrung. Wir begleiten Dich von Anfang an und arbeiten Dich sorgfältig ein. Auch 20 oder 25 Stunden möglich.",
     contact: companyEmail,
+    applyUrl: "https://mfws.alphadesk.de:13153/connect/stellen/3",
   },
   {
     slug: "pflegefachhelfer-zirndorf",
@@ -34,6 +36,7 @@ export const jobs: Job[] = [
     posted: "2026-06-05",
     description: "Mit 1-jähriger Pflegeausbildung. Feste Touren im Raum Zirndorf, kleines Team, Leistungsbonus zusätzlich zum Tarifgehalt.",
     contact: companyEmail,
+    applyUrl: "https://mfws.alphadesk.de:13153/connect/stellen/2",
   },
   {
     slug: "pflegefachkraft-zirndorf",
@@ -45,5 +48,6 @@ export const jobs: Job[] = [
     posted: "2026-06-05",
     description: "Examinierte Pflegefachkraft (Altenpflege oder Krankenpflege). Grund- und Behandlungspflege im häuslichen Umfeld, enge Zusammenarbeit mit Ärzten und Angehörigen.",
     contact: companyEmail,
+    applyUrl: "https://mfws.alphadesk.de:13153/connect/stellen/1",
   },
 ];

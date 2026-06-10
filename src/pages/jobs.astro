@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import { companyEmail } from "../data/locations";
+import { jobs } from "../data/jobs";
 ---
 
 <BaseLayout
@@ -24,22 +25,28 @@ import { companyEmail } from "../data/locations";
 
       <div class="jobs__inner container">
         <div class="job-list">
-          <article class="job-card card" data-reveal>
-            <div class="job-card__content">
-              <h3>Zirndorf</h3>
-              <p class="job-card__entity">Alle aktuellen Stellen bei Ihre Pflege Zirndorf</p>
-            </div>
-            <div class="job-card__actions">
-              <a
-                class="btn-primary"
-                href="https://mfws.alphadesk.de:13153/connect/stellen/1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Stellen entdecken
-              </a>
-            </div>
-          </article>
+          {
+            jobs.map((job) => (
+              <article class="job-card card" data-reveal>
+                <div class="job-card__content">
+                  <h3>{job.title}</h3>
+                  <p class="job-card__entity">{job.entity}</p>
+                  <p class="job-card__meta">{job.type}</p>
+                </div>
+                <div class="job-card__actions">
+                  <a class="btn-ghost" href={`/jobs/${job.slug}`}>
+                    Mehr erfahren
+                  </a>
+                  <a
+                    class="btn-primary"
+                    href={`/jobs/${job.slug}/bewerben`}
+                  >
+                    Jetzt bewerben
+                  </a>
+                </div>
+              </article>
+            ))
+          }
         </div>
         <p class="jobs__note">
           Keine passende Stelle dabei? Schreib uns trotzdem, wir freuen uns über jede Bewerbung:
@@ -89,10 +96,21 @@ import { companyEmail } from "../data/locations";
     font-size: 0.92rem;
   }
 
+  .job-card__content {
+    flex: 1 1 auto;
+  }
+
   .job-card__actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    flex: 0 0 390px;
     gap: 0.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .job-card__actions .btn-primary,
+  .job-card__actions .btn-ghost {
+    padding-inline: 1rem;
+    width: 100%;
   }
 
   .jobs__note {
@@ -110,6 +128,10 @@ import { companyEmail } from "../data/locations";
     .job-card {
       align-items: stretch;
       flex-direction: column;
+    }
+
+    .job-card__actions {
+      flex-basis: auto;
     }
   }
 </style>

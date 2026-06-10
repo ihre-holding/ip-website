@@ -20,7 +20,6 @@ if (!job) {
 <BaseLayout title={`Bewerbung ${job.title}`} description={`Schnell und unkompliziert bewerben als ${job.title}.`}>
   <Nav />
   <main class="page-main">
-    {/* WIZARD DISABLED - keep for future use
     <section class="section apply-page">
       <div class="container apply-page__inner">
         <a class="apply-page__back" href={`/jobs/${job.slug}`}>Zurück zur Stelle</a>
@@ -32,12 +31,10 @@ if (!job) {
         <div id="wizard" data-job-title={job.title}></div>
       </div>
     </section>
-    */}
   </main>
   <Footer />
 </BaseLayout>
 
-{/* WIZARD DISABLED - keep for future use
 <script is:inline>
   const wizard = document.getElementById("wizard");
 
@@ -63,16 +60,16 @@ if (!job) {
       },
       {
         key: "ausbildung",
-        question: "Was bringst du mit?",
+        question: "Welche Erfahrung hast du?",
         options: [
-          { label: "3-jährige Ausbildung (Altenpflege / Krankenpflege)" },
-          { label: "1-jährige Ausbildung (Pflegefachhelfer)" },
-          { label: "Keine Ausbildung in der Pflege (Quereinsteiger)" },
+          { label: "3-jährige Ausbildung" },
+          { label: "1-jährige Ausbildung" },
+          { label: "Keine Ausbildung in der Pflege" },
         ],
       },
       {
         key: "verfuegbarkeit",
-        question: "Wann könntest du beginnen?",
+        question: "Wann kannst du anfangen?",
         options: [
           { label: "Ab sofort" },
           { label: "In 1-3 Monaten" },
@@ -101,7 +98,7 @@ if (!job) {
     const renderDeadEnd = () => {
       wizard.innerHTML = `
         <div class="wizard__message">
-          <p>Für diese Stelle sind Deutschkenntnisse erforderlich. Ruf uns gerne direkt an:</p>
+          <p>Für diese Stelle brauchst du Deutschkenntnisse. Ruf uns gerne direkt an:</p>
           <p class="wizard__contact-value">0911 9606030</p>
         </div>
       `;
@@ -122,9 +119,10 @@ if (!job) {
 
         try {
           await navigator.clipboard.writeText(body);
-          copyButton.textContent = "Kopiert ✓";
+          window.umami?.track("wizard-text-copied", { role: wizard.dataset.jobTitle });
+          copyButton.textContent = "Kopiert";
           window.setTimeout(() => {
-            copyButton.textContent = "Oder Text kopieren";
+            copyButton.textContent = "Text kopieren";
           }, 2000);
         } catch {
           copyButton.textContent = "Bitte manuell kopieren";
@@ -158,9 +156,12 @@ if (!job) {
 
           window.setTimeout(() => {
             if (option.deadEnd) {
+              window.umami?.track("wizard-dead-end", { role: wizard.dataset.jobTitle, step: index + 1 });
               renderDeadEnd();
               return;
             }
+
+            window.umami?.track(`wizard-step-${index + 1}-completed`, { role: wizard.dataset.jobTitle });
 
             if (index === steps.length - 1) {
               renderFinalStep();
@@ -197,24 +198,31 @@ if (!job) {
 
 ich möchte mich als ${jobTitle} bewerben.
 
+Meine Angaben:
 Deutsch: ${answers.deutsch || ""}
 Führerschein Klasse B: ${answers.fuehrerschein || ""}
 Ausbildung: ${answers.ausbildung || ""}
 Verfügbarkeit: ${answers.verfuegbarkeit || ""}
+
+Meine Kontaktdaten:
 Name: ${name}
 Telefon: ${phone}
 
-Bitte meldet euch bei mir. Vielen Dank.`;
+Bitte melden Sie sich bei mir. Vielen Dank.
+
+Mit freundlichen Grüßen
+${name}`;
         const subject = `Bewerbung: ${jobTitle}`;
 
         renderConfirmation(subject, body);
+        window.umami?.track("wizard-summary-shown", { role: wizard.dataset.jobTitle });
       });
     };
 
     renderStep(0);
+    window.umami?.track("wizard-started", { role: wizard.dataset.jobTitle });
   }
 </script>
-*/}
 
 <style is:global>
   .apply-page__inner {
@@ -245,34 +253,38 @@ Bitte meldet euch bei mir. Vielen Dank.`;
   }
 
   #wizard {
-    background: var(--warm-grey);
+    background: var(--white);
+    border: 1px solid var(--border);
     border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
     display: grid;
     gap: 1.5rem;
-    padding: 2rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
   }
 
   #wizard h3 {
     font-family: var(--font-display);
-    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-size: clamp(1.8rem, 4vw, 2.75rem);
     line-height: 1.15;
     margin: 0;
   }
 
   .wizard__progress {
     display: grid;
-    gap: 0.65rem;
+    gap: 0.75rem;
   }
 
   .wizard__progress span {
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
   .wizard__bar {
-    background: rgba(13, 27, 42, 0.12);
-    height: 3px;
+    background: color-mix(in srgb, var(--teal) 16%, transparent);
+    height: 2px;
     overflow: hidden;
     width: 100%;
   }
@@ -285,16 +297,16 @@ Bitte meldet euch bei mir. Vielen Dank.`;
   }
 
   .wizard__options {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 
   .wizard__option {
     align-items: center;
     background: var(--white);
-    border: 2px solid var(--border);
-    border-radius: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     color: var(--navy);
     cursor: pointer;
     display: inline-flex;
@@ -303,8 +315,7 @@ Bitte meldet euch bei mir. Vielen Dank.`;
     gap: 0.5rem;
     justify-content: center;
     line-height: 1.35;
-    min-height: 120px;
-    min-width: 120px;
+    min-height: 112px;
     padding: 1rem;
     text-align: center;
     transition:
@@ -314,11 +325,14 @@ Bitte meldet euch bei mir. Vielen Dank.`;
 
   .wizard__option:hover,
   .wizard__option:focus-visible {
+    background: color-mix(in srgb, var(--teal) 5%, var(--white));
     border-color: var(--teal);
   }
 
   .wizard__option.is-selected {
-    background: var(--teal-light);
+    background: var(--teal);
+    border-color: var(--teal);
+    color: var(--white);
   }
 
   .wizard__fields {
@@ -335,7 +349,9 @@ Bitte meldet euch bei mir. Vielen Dank.`;
 
   .wizard__fields input {
     border: 1px solid var(--border);
+    border-radius: 8px;
     color: var(--navy);
+    font: inherit;
     min-height: 3.2rem;
     padding: 0.75rem 1rem;
   }
@@ -350,11 +366,12 @@ Bitte meldet euch bei mir. Vielen Dank.`;
   }
 
   .wizard__message {
-    background: var(--white);
+    background: color-mix(in srgb, var(--teal) 4%, var(--white));
     border: 1px solid var(--border);
+    border-radius: 8px;
     display: grid;
-    gap: 0.9rem;
-    padding: 1.25rem;
+    gap: 1rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
   }
 
   .wizard__message p {
@@ -368,7 +385,9 @@ Bitte meldet euch bei mir. Vielen Dank.`;
   }
 
   .wizard__message pre {
-    background: var(--warm-grey);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
     color: var(--text-mid);
     font: inherit;
     line-height: 1.6;
@@ -389,8 +408,11 @@ Bitte meldet euch bei mir. Vielen Dank.`;
       padding: 1.5rem;
     }
 
+    .wizard__options {
+      grid-template-columns: 1fr;
+    }
+
     .wizard__option {
-      flex: 1 1 100%;
       width: 100%;
     }
   }
