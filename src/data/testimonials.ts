@@ -1,13 +1,16 @@
 export interface Testimonial {
   slug: string;
-  initials: string;
-  role: string;
+  initials?: string;
+  role?: string;
   rating: 5;
   text: string;
   source: 'google';
   sourceLabel: string;
   sourceUrl?: string;
-  postedRelative: string;
+  /** Absolutes Datum (z.B. "Juni 2026") — altert ehrlich, wird bevorzugt vor postedRelative angezeigt. */
+  posted?: string;
+  /** Legacy: relative Angabe ("vor 3 Monaten"). Nur bis ein absolutes `posted` vorliegt. */
+  postedRelative?: string;
   anonymous?: boolean;
 }
 
@@ -56,5 +59,15 @@ export const testimonials: Testimonial[] = [
     source: 'google',
     sourceLabel: 'Bewertung auf Google',
     postedRelative: 'vor 2 Monaten',
+  },
+  {
+    slug: 'menschliche-pflege-zirndorf',
+    rating: 5,
+    text:
+      'Menschliche Pflege, noch nie eine Beschwerde, da kann man nur dankbar sein, dass wir so etwas in Zirndorf haben. Wir sagen: DANKE!',
+    source: 'google',
+    sourceLabel: 'Bewertung auf Google',
+    posted: 'Juni 2026',
+    anonymous: true,
   },
 ];

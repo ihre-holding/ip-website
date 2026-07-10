@@ -27,7 +27,7 @@ const moreTestimonials = testimonials.slice(1);
       <p class="testimonial-card__role">{featured.role}</p>
       <div class="testimonial-card__meta">
         <span class="testimonial-card__source">{featured.sourceLabel}</span>
-        <span class="testimonial-card__date">{featured.postedRelative}</span>
+        <span class="testimonial-card__date">{featured.posted ?? featured.postedRelative}</span>
       </div>
     </article>
 
@@ -39,8 +39,8 @@ const moreTestimonials = testimonials.slice(1);
           </div>
           <blockquote class="testimonial-card__quote">„{testimonial.text}“</blockquote>
           <div class="testimonial-card__divider" aria-hidden="true"></div>
-          <p class="testimonial-card__author">{testimonial.anonymous ? testimonial.initials : testimonial.initials}</p>
-          <p class="testimonial-card__role">{testimonial.role}</p>
+          {testimonial.initials && <p class="testimonial-card__author">{testimonial.initials}</p>}
+          {testimonial.role && <p class="testimonial-card__role">{testimonial.role}</p>}
           <div class="testimonial-card__meta">
             {testimonial.sourceUrl && !testimonial.anonymous ? (
               <a class="testimonial-card__source" href={testimonial.sourceUrl} target="_blank" rel="noreferrer">
@@ -49,7 +49,7 @@ const moreTestimonials = testimonials.slice(1);
             ) : (
               <span class="testimonial-card__source">{testimonial.sourceLabel}</span>
             )}
-            <span class="testimonial-card__date">{testimonial.postedRelative}</span>
+            <span class="testimonial-card__date">{testimonial.posted ?? testimonial.postedRelative}</span>
           </div>
         </article>
       ))}
