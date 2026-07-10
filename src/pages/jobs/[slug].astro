@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import { jobs } from "../../data/jobs";
+import { locations, companyAddressLine1, companyAddressLine2 } from "../../data/locations";
 
 const benefits = [
   "Leistungsbonus",
@@ -77,9 +78,60 @@ if (!job) {
 }
 
 const content = roleContent[job.slug as keyof typeof roleContent];
+
+// --- Strukturierte Daten für Google for Jobs (JobPosting) ---
+const employmentTypeMap: Record<string, string[]> = {
+  "Vollzeit": ["FULL_TIME"],
+  "Teilzeit": ["PART_TIME"],
+  "Teilzeit / Vollzeit": ["FULL_TIME", "PART_TIME"],
+  "Minijob": ["PART_TIME"],
+};
+const loc = locations.find((entry) => entry.slug === job.locationSlug);
+const postalCode = companyAddressLine2.split(" ")[0];
+const locality = companyAddressLine2.split(" ").slice(1).join(" ");
+const listHtml = (items: readonly string[]) =>
+  `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
+const descriptionHtml = content
+  ? `<p>${content.intro}</p>` +
+    `<p><strong>Was Dich erwartet:</strong></p>${listHtml(content.expected)}` +
+    `<p><strong>Was Du mitbringst:</strong></p>${listHtml(content.requirements)}` +
+    `<p><strong>Was wir bieten:</strong></p>${listHtml(benefits)}`
+  : job.description;
+const jobPosting = {
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
+  title: job.title,
+  description: descriptionHtml,
+  datePosted: job.posted,
+  employmentType: employmentTypeMap[job.type] ?? ["OTHER"],
+  hiringOrganization: {
+    "@type": "Organization",
+    name: job.entity,
+    sameAs: "https://www.ihre-pflege.de",
+    logo: "https://www.ihre-pflege.de/IP-full-logo.png",
+  },
+  jobLocation: {
+    "@type": "Place",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: companyAddressLine1,
+      addressLocality: locality || loc?.city || "Zirndorf",
+      postalCode,
+      addressCountry: "DE",
+    },
+  },
+  identifier: {
+    "@type": "PropertyValue",
+    name: job.entity,
+    value: job.slug,
+  },
+  directApply: false,
+};
+const jobPostingJson = JSON.stringify(jobPosting).replace(/</g, "\\u003c");
 ---
 
 <BaseLayout title={job.title} description={job.description}>
+  <script type="application/ld+json" slot="head" is:inline set:html={jobPostingJson} />
   <Nav />
   <main class="page-main">
     <article class="section job-detail">
