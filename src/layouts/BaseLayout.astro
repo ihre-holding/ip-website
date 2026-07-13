@@ -63,7 +63,20 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
           "postalCode": "90513",
           "addressCountry": "DE"
         },
-        "openingHours": ["Mo-Fr 08:00-12:00", "Mo-Fr 14:00-17:00"],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "12:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "14:00",
+            "closes": "17:00"
+          }
+        ],
         "areaServed": ["Zirndorf", "Oberasbach", "Stein", "Fürth"]
       }
     </script>
