@@ -1,0 +1,86 @@
+---
+export interface Crumb {
+  name: string;
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+const siteOrigin = Astro.site ?? new URL("https://www.ihre-pflege.de");
+const abs = (href: string) => new URL(href, siteOrigin).toString();
+
+const breadcrumbList = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    ...(item.href ? { item: abs(item.href) } : {}),
+  })),
+};
+const breadcrumbJson = JSON.stringify(breadcrumbList).replace(/</g, "\\u003c");
+---
+
+<nav class="breadcrumbs" aria-label="Brotkrumennavigation">
+  <ol>
+    {
+      items.map((item, index) => (
+        <li>
+          {item.href && index < items.length - 1 ? (
+            <a href={item.href}>{item.name}</a>
+          ) : (
+            <span aria-current="page">{item.name}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+<script type="application/ld+json" is:inline set:html={breadcrumbJson} />
+
+<style>
+  .breadcrumbs {
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.92rem;
+  }
+
+  .breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+  }
+
+  .breadcrumbs li:not(:first-child)::before {
+    content: "/";
+    color: var(--text-muted);
+  }
+
+  .breadcrumbs a {
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  .breadcrumbs a:hover,
+  .breadcrumbs a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .breadcrumbs span[aria-current="page"] {
+    color: var(--text-mid);
+  }
+</style>
