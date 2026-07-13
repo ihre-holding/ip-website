@@ -3,68 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import { jobs } from "../../data/jobs";
+import { jobs, benefits } from "../../data/jobs";
 import { locations, companyAddressLine1, companyAddressLine2 } from "../../data/locations";
-
-const benefits = [
-  "Leistungsbonus",
-  "35 Tage Urlaub",
-  "Fort- & Weiterbildung",
-  "Feste Touren",
-  "Kleines Team",
-  "Quereinsteiger willkommen",
-];
-
-const roleContent = {
-  "pflegehilfskraft-zirndorf": {
-    intro:
-      "Du möchtest in der Pflege arbeiten, hast aber noch wenig Erfahrung? Bei uns kein Problem. Wir begleiten Dich von Anfang an.",
-    expected: [
-      "Unterstützung bei der Grundpflege und Alltagsbegleitung",
-      "Begleitung unserer Patienten auf den täglichen Touren in Zirndorf und Umgebung",
-      "Dokumentation mit der Pflegesoftware (Einarbeitung inklusive)",
-      "Enger Austausch im Team und mit Angehörigen",
-    ],
-    requirements: [
-      "Führerschein Klasse B",
-      "Einwandfreies Führungszeugnis",
-      "Deutsch mindestens B1",
-      "Zuverlässigkeit und Freude am Umgang mit Menschen - Vorerfahrung kein Muss",
-    ],
-  },
-  "pflegefachhelfer-zirndorf": {
-    intro:
-      "Als Pflegefachhelfer übernimmst Du echte Verantwortung auf den Touren, mit einem Team das Dich kennt und auf das Du Dich verlassen kannst.",
-    expected: [
-      "Durchführung der Grundpflege nach Pflegeplan",
-      "Unterstützung bei der Behandlungspflege unter Anleitung",
-      "Dokumentation und Qualitätssicherung",
-      "Ansprechpartner für Patienten und Angehörige auf der Tour",
-    ],
-    requirements: [
-      "Abgeschlossene 1-jährige Pflegeausbildung (Pflegefachhelfer oder Pflegeassistenz)",
-      "Führerschein Klasse B",
-      "Einwandfreies Führungszeugnis",
-      "Deutsch mindestens B1",
-    ],
-  },
-  "pflegefachkraft-zirndorf": {
-    intro:
-      "Du bist examiniert und suchst eine Stelle mit geregelten Touren, echtem Teamzusammenhalt und fairer Bezahlung ohne Springer-Einteilung?",
-    expected: [
-      "Selbstständige Durchführung der Grund- und Behandlungspflege",
-      "Beratungseinsätze nach § 37 SGB XI",
-      "Ansprechpartner für Patienten, Angehörige und Ärzte",
-      "Dokumentation und Qualitätssicherung mit Pflegesoftware",
-    ],
-    requirements: [
-      "Abgeschlossene 3-jährige Ausbildung als Pflegefachkraft, Altenpfleger oder Gesundheits- und Krankenpfleger",
-      "Führerschein Klasse B",
-      "Einwandfreies Führungszeugnis",
-      "Deutsch mindestens B1",
-    ],
-  },
-} as const;
 
 export function getStaticPaths() {
   return jobs.map((job) => ({
@@ -78,8 +18,6 @@ if (!job) {
   return new Response(null, { status: 404 });
 }
 
-const content = roleContent[job.slug as keyof typeof roleContent];
-
 // --- Strukturierte Daten für Google for Jobs (JobPosting) ---
 const employmentTypeMap: Record<string, string[]> = {
   "Vollzeit": ["FULL_TIME"],
@@ -92,12 +30,11 @@ const postalCode = companyAddressLine2.split(" ")[0];
 const locality = companyAddressLine2.split(" ").slice(1).join(" ");
 const listHtml = (items: readonly string[]) =>
   `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
-const descriptionHtml = content
-  ? `<p>${content.intro}</p>` +
-    `<p><strong>Was Dich erwartet:</strong></p>${listHtml(content.expected)}` +
-    `<p><strong>Was Du mitbringst:</strong></p>${listHtml(content.requirements)}` +
-    `<p><strong>Was wir bieten:</strong></p>${listHtml(benefits)}`
-  : job.description;
+const descriptionHtml =
+  `<p>${job.intro}</p>` +
+  `<p><strong>Was Dich erwartet:</strong></p>${listHtml(job.expected)}` +
+  `<p><strong>Was Du mitbringst:</strong></p>${listHtml(job.requirements)}` +
+  `<p><strong>Was wir bieten:</strong></p>${listHtml(benefits)}`;
 const jobPosting = {
   "@context": "https://schema.org",
   "@type": "JobPosting",
@@ -131,7 +68,7 @@ const jobPosting = {
 const jobPostingJson = JSON.stringify(jobPosting).replace(/</g, "\\u003c");
 ---
 
-<BaseLayout title={job.title} description={job.description}>
+<BaseLayout title={job.title} description={job.summary}>
   <script type="application/ld+json" slot="head" is:inline set:html={jobPostingJson} />
   <Nav />
   <main class="page-main">
@@ -152,12 +89,12 @@ const jobPostingJson = JSON.stringify(jobPosting).replace(/</g, "\\u003c");
           </p>
         </header>
 
-        <p class="job-detail__intro">{content.intro}</p>
+        <p class="job-detail__intro">{job.intro}</p>
 
         <section class="job-detail__section" aria-labelledby="expected-heading">
           <h2 id="expected-heading">Was Dich erwartet</h2>
           <ul class="job-detail__list">
-            {content.expected.map((item) => <li>{item}</li>)}
+            {job.expected.map((item) => <li>{item}</li>)}
           </ul>
         </section>
 
@@ -171,7 +108,7 @@ const jobPostingJson = JSON.stringify(jobPosting).replace(/</g, "\\u003c");
         <section class="job-detail__section" aria-labelledby="requirements-heading">
           <h2 id="requirements-heading">Was Du mitbringst</h2>
           <ul class="job-detail__list">
-            {content.requirements.map((item) => <li>{item}</li>)}
+            {job.requirements.map((item) => <li>{item}</li>)}
           </ul>
         </section>
 
