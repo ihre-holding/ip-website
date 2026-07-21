@@ -95,6 +95,7 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
   :root {
     --teal: #00B4CC;
     --teal-dark: #0093A8;
+    --teal-ink: #00788A;
     --teal-light: #E8F9FC;
     --navy: #0D1B2A;
     --white: #FFFFFF;
@@ -149,7 +150,7 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
   }
 
   :focus-visible {
-    outline: 2px solid var(--teal);
+    outline: 2px solid var(--teal-ink);
     outline-offset: 4px;
   }
 
@@ -203,7 +204,7 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
 
   .eyebrow {
     margin: 0;
-    color: var(--teal);
+    color: var(--teal-ink);
     font-size: 0.7rem;
     font-weight: 500;
     letter-spacing: 0.15em;
@@ -234,7 +235,7 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
 
   .btn-primary {
     background: var(--teal);
-    color: var(--white);
+    color: var(--navy);
   }
 
   .btn-primary:hover,
@@ -252,13 +253,13 @@ const previewImageUrl = new URL("/IP-logo-line.png", siteOrigin).toString();
 
   .btn-ghost {
     background: transparent;
-    color: var(--teal);
+    color: var(--teal-ink);
   }
 
   .btn-ghost:hover,
   .btn-ghost:focus-visible {
     background: var(--teal);
-    color: var(--white);
+    color: var(--navy);
   }
 
 
