@@ -71,7 +71,7 @@ const jobPostingJson = JSON.stringify(jobPosting).replace(/</g, "\\u003c");
 <BaseLayout title={job.title} description={job.summary}>
   <script type="application/ld+json" slot="head" is:inline set:html={jobPostingJson} />
   <Nav />
-  <main class="page-main">
+  <main id="main" tabindex="-1" class="page-main">
     <article class="section job-detail">
       <div class="container job-detail__inner">
         <Breadcrumbs
