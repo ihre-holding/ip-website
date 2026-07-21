@@ -181,6 +181,10 @@ const isKarriere = Astro.url.pathname.startsWith("/jobs");
     transform: scaleX(1);
   }
 
+  .site-nav__menu:hover > a:not(.site-nav__cta).is-active:not(:hover)::after {
+    transform: scaleX(0);
+  }
+
   .site-nav__menu > a:not(.site-nav__cta).is-active {
     color: var(--teal-ink);
   }
