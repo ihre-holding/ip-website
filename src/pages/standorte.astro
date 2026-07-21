@@ -12,7 +12,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   description="Ihre Pflege: ambulanter Pflegedienst in Zirndorf, Oberasbach und Umgebung. Zugelassen bei allen Kranken- und Pflegekassen."
 >
   <Nav />
-  <main class="page-main">
+  <main id="main" tabindex="-1" class="page-main">
     <section class="section locations">
       <div class="container page-intro">
         <p class="eyebrow" data-reveal>Unsere Standorte</p>
@@ -32,7 +32,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
               style={`--motion-delay: ${index * 100}ms`}
             >
               <div class="location-card__content">
-                <h3>{location.name}</h3>
+                <h2>{location.name}</h2>
                 <p class="location-card__address">{location.address}</p>
                 <a class="location-card__phone" href={phoneHref(location.phone)}>{location.phone}</a>
                 <a class="location-card__email" href={`mailto:${location.email}`}>{location.email}</a>
@@ -97,7 +97,7 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     width: 100%;
   }
 
-  .location-card h3 {
+  .location-card h2 {
     margin: 0 0 1rem;
     font-size: 1.65rem;
     line-height: 1.15;

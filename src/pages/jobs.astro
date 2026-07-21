@@ -11,7 +11,7 @@ import { jobs } from "../data/jobs";
   description="Stellenangebote beim ambulanten Pflegedienst in Zirndorf und Umgebung. Pflegefachkräfte, Pflegehelfer und Quereinsteiger willkommen."
 >
   <Nav />
-  <main class="page-main">
+  <main id="main" tabindex="-1" class="page-main">
     <section class="section jobs">
       <div class="container page-intro">
         <p class="eyebrow" data-reveal>Karriere</p>
@@ -29,7 +29,7 @@ import { jobs } from "../data/jobs";
             jobs.map((job) => (
               <article class="job-card card" data-reveal>
                 <div class="job-card__content">
-                  <h3>{job.title}</h3>
+                  <h2>{job.title}</h2>
                   <p class="job-card__entity">{job.entity}</p>
                   <p class="job-card__meta">{job.type}</p>
                 </div>
@@ -80,7 +80,7 @@ import { jobs } from "../data/jobs";
     padding: 1.5rem 2rem;
   }
 
-  .job-card h3 {
+  .job-card h2 {
     margin: 0 0 1rem;
     font-size: 1.65rem;
     line-height: 1.15;
