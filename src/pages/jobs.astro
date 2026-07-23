@@ -9,6 +9,8 @@ import { jobs } from "../data/jobs";
 <BaseLayout
   title="Jobs"
   description="Stellenangebote beim ambulanten Pflegedienst in Zirndorf und Umgebung. Pflegefachkräfte, Pflegehelfer und Quereinsteiger willkommen."
+  ogImage="/images/og-jobs.jpg"
+  ogImageAlt="Das Team von Ihre Pflege Zirndorf"
 >
   <Nav />
   <main id="main" tabindex="-1" class="page-main">
@@ -21,6 +23,18 @@ import { jobs } from "../data/jobs";
           suchen Pflegefachkräfte und Hilfskräfte in Voll- und Teilzeit und begleiten Dich von Anfang an, auch wenn Du neu
           in der Pflege sind.
         </p>
+      </div>
+
+      <div class="container jobs__team">
+        <img
+          class="jobs__team-image"
+          data-reveal
+          src="/images/team-gruppe.jpg"
+          alt="Das Team von Ihre Pflege Zirndorf"
+          width="1920"
+          height="2023"
+          loading="lazy"
+        />
       </div>
 
       <div class="jobs__inner container">
@@ -59,6 +73,20 @@ import { jobs } from "../data/jobs";
 </BaseLayout>
 
 <style>
+  .jobs__team {
+    margin-top: 2.5rem;
+  }
+
+  .jobs__team-image {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    margin-inline: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
   .jobs__inner {
     margin-top: 2.5rem;
   }
