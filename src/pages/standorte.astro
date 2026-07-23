@@ -47,6 +47,28 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
                   )
                 }
                 <p class="location-card__area">Einzugsgebiet: {location.serviceArea}</p>
+                {
+                  location.quality && (
+                    <div class="location-card__quality">
+                      <p class="location-card__quality-label">Geprüfte Qualität</p>
+                      <p class="location-card__quality-text">
+                        Vom Medizinischen Dienst geprüft — Gesamtergebnis{" "}
+                        <strong>{location.quality.mdResult}</strong> ({location.quality.mdMonth}).
+                      </p>
+                      <a
+                        class="location-card__quality-link"
+                        href={location.quality.reportUrl}
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        Prüfbericht ansehen (PDF)
+                      </a>
+                      <p class="location-card__quality-src">
+                        Quelle: Transparenzbericht des Medizinischen Dienstes vom {location.quality.mdDate}
+                      </p>
+                    </div>
+                  )
+                }
               </div>
               {
                 location.slug === "zirndorf" && (
@@ -72,37 +94,6 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
               }
             </article>
           ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="quality" aria-labelledby="quality-title">
-      <div class="container quality__inner">
-        <div class="quality__intro">
-          <p class="eyebrow" data-reveal>Qualität & Transparenz</p>
-          <h2 id="quality-title" data-reveal style="--motion-delay: 80ms">Geprüft und zugelassen</h2>
-        </div>
-        <div class="quality__points" data-reveal style="--motion-delay: 160ms">
-          <div class="quality-point">
-            <h3>Zugelassener Pflegedienst</h3>
-            <p>
-              Als zugelassener ambulanter Pflegedienst haben wir einen Versorgungsvertrag mit den Pflege- und
-              Krankenkassen. Ihre Leistungen rechnen wir direkt mit Ihrer Kasse ab.
-            </p>
-          </div>
-          <div class="quality-point">
-            <h3>Vom Medizinischen Dienst geprüft</h3>
-            <p>
-              Der Medizinische Dienst prüft die Qualität ambulanter Pflegedienste. Bei unserer letzten Prüfung im
-              Januar 2026 haben wir das Gesamtergebnis <strong>1,0 (sehr gut)</strong> erreicht.
-            </p>
-            <p class="quality-point__doc">
-              <a href="/dokumente/md-pruefbericht-2026-01.pdf" target="_blank" rel="noopener">
-                Prüfbericht ansehen (PDF)
-              </a>
-              <span class="quality-point__src">Quelle: Transparenzbericht zur Qualitätsprüfung des Medizinischen Dienstes vom 29.01.2026</span>
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -172,17 +163,62 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
   }
 
   .location-card__hours {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     color: var(--text-muted);
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
   .location-card__area {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     color: var(--text-muted);
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.5;
+  }
+
+  .location-card__quality {
+    margin-top: 1.1rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .location-card__quality-label {
+    margin: 0 0 0.4rem;
+    color: var(--teal-ink);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .location-card__quality-text {
+    margin: 0 0 0.5rem;
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .location-card__quality-link {
+    display: inline-block;
+    width: fit-content;
+    color: var(--teal-ink);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+    transition: color 160ms ease;
+  }
+
+  .location-card__quality-link:hover,
+  .location-card__quality-link:focus-visible {
+    color: var(--teal-dark);
+  }
+
+  .location-card__quality-src {
+    margin: 0.45rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
   }
 
   .location-card__film {
@@ -209,74 +245,6 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
       aspect-ratio: 16 / 9;
       height: clamp(180px, 56vw, 260px);
       min-height: 0;
-    }
-  }
-
-  /* Qualität & Transparenz — bewusst schlank und nachgeordnet */
-  .quality {
-    padding-block: clamp(2.5rem, 5vw, 4rem);
-    border-top: 1px solid var(--border);
-  }
-
-  .quality__intro {
-    margin-bottom: 1.75rem;
-  }
-
-  .quality__intro h2 {
-    margin: 0.4rem 0 0;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    line-height: 1.15;
-  }
-
-  .quality__points {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem 2.5rem;
-    max-width: 900px;
-  }
-
-  .quality-point h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.1rem;
-    line-height: 1.25;
-  }
-
-  .quality-point p {
-    margin: 0;
-    color: var(--text-mid);
-    font-size: 0.94rem;
-    line-height: 1.65;
-  }
-
-  .quality-point__doc {
-    margin-top: 0.85rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .quality-point__doc a {
-    width: fit-content;
-    color: var(--teal-ink);
-    font-weight: 500;
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 1px;
-    transition: color 160ms ease;
-  }
-
-  .quality-point__doc a:hover,
-  .quality-point__doc a:focus-visible {
-    color: var(--teal-dark);
-  }
-
-  .quality-point__src {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-  }
-
-  @media (max-width: 640px) {
-    .quality__points {
-      grid-template-columns: 1fr;
     }
   }
 </style>
