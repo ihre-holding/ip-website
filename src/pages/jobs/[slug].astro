@@ -115,10 +115,20 @@ const jobPostingJson = JSON.stringify(jobPosting).replace(/</g, "\\u003c");
         <section class="job-detail__section" aria-labelledby="contact-heading">
           <h2 id="contact-heading">Ansprechpartnerin</h2>
           <div class="job-detail__contact">
-            <p class="job-detail__contact-name">Ipek Kuvaoglu</p>
-            <p>Personalleitung</p>
-            <a href="tel:+499119606030">0911 9606030</a>
-            <a href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
+            <img
+              class="job-detail__contact-photo"
+              src="/images/ansprechpartnerin.jpg"
+              alt="Ipek Kuvaoglu, Personalleitung bei Ihre Pflege Zirndorf"
+              width="1700"
+              height="1700"
+              loading="lazy"
+            />
+            <div class="job-detail__contact-details">
+              <p class="job-detail__contact-name">Ipek Kuvaoglu</p>
+              <p>Personalleitung</p>
+              <a href="tel:+499119606030">0911 9606030</a>
+              <a href="mailto:info@ihre-pflege.de">info@ihre-pflege.de</a>
+            </div>
           </div>
         </section>
 
@@ -200,10 +210,25 @@ const jobPostingJson = JSON.stringify(jobPosting).replace(/</g, "\\u003c");
 
   .job-detail__contact {
     border: 1px solid var(--border);
-    display: grid;
-    gap: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
     max-width: 420px;
     padding: 1.25rem;
+  }
+
+  .job-detail__contact-photo {
+    flex: 0 0 auto;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .job-detail__contact-details {
+    display: grid;
+    gap: 0.35rem;
   }
 
   .job-detail__contact p {
