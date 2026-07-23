@@ -22,6 +22,8 @@ const faqs = [
   {
     q: "Was kostet mich die Pflege?",
     a: "Das hängt von Ihrem Pflegegrad und den Leistungen ab, die Sie brauchen. Einen großen Teil übernimmt in der Regel die Pflege- oder Krankenkasse; je nach Situation bleibt ein Eigenanteil. Wir rechnen direkt mit Ihrer Kasse ab und erklären Ihnen im persönlichen Gespräch, womit Sie konkret rechnen können. Verbindliche Zahlen nennen wir erst nach einer Beratung.",
+    moreHref: "/kosten",
+    moreLabel: "Kosten & Kassen im Überblick",
   },
   {
     q: "Brauche ich einen Pflegegrad?",
@@ -121,6 +123,11 @@ const faqSchemaJson = JSON.stringify(faqSchema).replace(/</g, "\\u003c");
                 </summary>
                 <div class="faq-item__a">
                   <p>{item.a}</p>
+                  {item.moreHref && (
+                    <p class="faq-item__more">
+                      <a href={item.moreHref}>{item.moreLabel} &rarr;</a>
+                    </p>
+                  )}
                 </div>
               </details>
             ))
@@ -261,6 +268,21 @@ const faqSchemaJson = JSON.stringify(faqSchema).replace(/</g, "\\u003c");
     margin: 0;
     max-width: 74ch;
     line-height: 1.75;
+  }
+
+  .faq-item__more {
+    margin-top: 0.85rem;
+  }
+
+  .faq-item__more a {
+    color: var(--teal-ink);
+    font-weight: 500;
+    transition: color 160ms ease;
+  }
+
+  .faq-item__more a:hover,
+  .faq-item__more a:focus-visible {
+    color: var(--teal-dark);
   }
 
   .faq__foot {

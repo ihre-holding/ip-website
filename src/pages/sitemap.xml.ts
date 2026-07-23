@@ -8,6 +8,7 @@ const SITE = "https://www.ihre-pflege.de";
 const staticPaths = [
   "/",
   "/leistungen/",
+  "/kosten/",
   "/standorte/",
   "/jobs/",
   "/kontakt/",

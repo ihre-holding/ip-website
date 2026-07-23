@@ -1,6 +1,7 @@
 ---
 const isHome = Astro.url.pathname === "/";
 const isLeistungen = Astro.url.pathname.startsWith("/leistungen");
+const isKosten = Astro.url.pathname.startsWith("/kosten");
 const isStandorte = Astro.url.pathname.startsWith("/standorte");
 const isKarriere = Astro.url.pathname.startsWith("/jobs");
 const isKontakt = Astro.url.pathname.startsWith("/kontakt");
@@ -35,6 +36,9 @@ const isKontakt = Astro.url.pathname.startsWith("/kontakt");
         aria-current={isLeistungen ? "page" : undefined}
       >
         Leistungen
+      </a>
+      <a class:list={{ "is-active": isKosten }} href="/kosten" aria-current={isKosten ? "page" : undefined}>
+        Kosten
       </a>
       <a class:list={{ "is-active": isStandorte }} href="/standorte" aria-current={isStandorte ? "page" : undefined}>
         Standorte
@@ -314,6 +318,10 @@ const isKontakt = Astro.url.pathname.startsWith("/kontakt");
 
       .site-nav__menu.is-open > a:nth-child(6) {
         animation-delay: 290ms;
+      }
+
+      .site-nav__menu.is-open > a:nth-child(7) {
+        animation-delay: 340ms;
       }
     }
 
