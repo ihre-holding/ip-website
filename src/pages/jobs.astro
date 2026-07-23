@@ -15,20 +15,20 @@ import { jobs } from "../data/jobs";
   <Nav />
   <main id="main" tabindex="-1" class="page-main">
     <section class="section jobs">
-      <div class="container page-intro">
-        <p class="eyebrow" data-reveal>Karriere</p>
-        <h1 data-reveal style="--motion-delay: 80ms">Arbeiten bei Ihre Pflege</h1>
-        <p data-reveal style="--motion-delay: 160ms">
-          Kleine Teams, feste Touren, faire Bezahlung und Arbeit, die wirklich zählt. Wir
-          suchen Pflegefachkräfte und Hilfskräfte in Voll- und Teilzeit und begleiten Dich von Anfang an, auch wenn Du neu
-          in der Pflege sind.
-        </p>
-      </div>
-
-      <div class="container jobs__team">
+      <div class="container jobs__header">
+        <div class="jobs__intro page-intro">
+          <p class="eyebrow" data-reveal>Karriere</p>
+          <h1 data-reveal style="--motion-delay: 80ms">Arbeiten bei Ihre Pflege</h1>
+          <p data-reveal style="--motion-delay: 160ms">
+            Kleine Teams, feste Touren, faire Bezahlung und Arbeit, die wirklich zählt. Wir
+            suchen Pflegefachkräfte und Hilfskräfte in Voll- und Teilzeit und begleiten Dich von Anfang an, auch wenn Du
+            neu in der Pflege sind.
+          </p>
+        </div>
         <img
-          class="jobs__team-image"
+          class="jobs__header-image"
           data-reveal
+          style="--motion-delay: 240ms"
           src="/images/team-gruppe.jpg"
           alt="Das Team von Ihre Pflege Zirndorf"
           width="1920"
@@ -73,18 +73,32 @@ import { jobs } from "../data/jobs";
 </BaseLayout>
 
 <style>
-  .jobs__team {
-    margin-top: 2.5rem;
+  .jobs__header {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
   }
 
-  .jobs__team-image {
+  .jobs__header-image {
     display: block;
     width: 100%;
-    max-width: 320px;
+    max-width: 420px;
     height: auto;
-    margin-inline: auto;
+    justify-self: end;
     border-radius: 12px;
     object-fit: cover;
+  }
+
+  @media (max-width: 820px) {
+    .jobs__header {
+      grid-template-columns: 1fr;
+    }
+
+    .jobs__header-image {
+      max-width: 340px;
+      justify-self: center;
+    }
   }
 
   .jobs__inner {
