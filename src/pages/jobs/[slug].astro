@@ -68,7 +68,7 @@ const jobPosting = {
 const jobPostingJson = JSON.stringify(jobPosting).replace(/</g, "\\u003c");
 ---
 
-<BaseLayout title={job.title} description={job.summary}>
+<BaseLayout title={job.title} description={job.summary} ogImage="/images/og-jobs.jpg" ogImageAlt="Das Team von Ihre Pflege Zirndorf">
   <script type="application/ld+json" slot="head" is:inline set:html={jobPostingJson} />
   <Nav />
   <main id="main" tabindex="-1" class="page-main">

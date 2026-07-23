@@ -1,0 +1,40 @@
+---
+interface Props {
+  src: string;
+  poster: string;
+  label: string;
+}
+
+const { src, poster, label } = Astro.props;
+---
+
+<figure class="film" data-reveal>
+  <video
+    class="film__video"
+    controls
+    preload="none"
+    poster={poster}
+    playsinline
+    aria-label={label}
+  >
+    <source src={src} type="video/mp4" />
+    Ihr Browser kann dieses Video nicht abspielen.
+    <a href={src}>Video herunterladen</a>.
+  </video>
+</figure>
+
+<style>
+  .film {
+    margin: 0;
+  }
+
+  .film__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: var(--navy);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(13, 27, 42, 0.1);
+  }
+</style>

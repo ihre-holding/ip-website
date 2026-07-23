@@ -4,6 +4,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import HeroLineArt from "../components/HeroLineArt.astro";
 import Testimonials from "../components/Testimonials.astro";
+import VideoFilm from "../components/VideoFilm.astro";
 ---
 
 <BaseLayout
@@ -45,6 +46,37 @@ import Testimonials from "../components/Testimonials.astro";
           Wir sind bei allen Kranken- und Pflegekassen zugelassen und kommen direkt zu Ihnen nach Hause. Ob tägliche
           Pflege, medizinische Versorgung oder eine verlässliche Begleitung im Alltag.
         </p>
+        <img
+          class="about__image"
+          data-reveal
+          style="--motion-delay: 320ms"
+          src="/images/pflege-garten.jpg"
+          alt="Pflegekraft von Ihre Pflege begleitet eine Klientin im Garten"
+          width="1920"
+          height="892"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <section class="film-section section" id="film" aria-labelledby="film-title">
+      <div class="film-section__inner container">
+        <p class="eyebrow" data-reveal>Ihre Pflege im Film</p>
+        <h2 id="film-title" data-reveal style="--motion-delay: 80ms">Lernen Sie uns kennen</h2>
+        <p class="film-section__text" data-reveal style="--motion-delay: 160ms">
+          Ein kurzer Einblick in unseren Alltag: die Menschen, die wir begleiten, und das Team, das jeden Tag für sie da
+          ist.
+        </p>
+        <div class="film-section__player" data-reveal style="--motion-delay: 240ms">
+          <VideoFilm
+            src="/videos/Imagefilm_Highlight_40s.mp4"
+            poster="/videos/Imagefilm_Poster.jpg"
+            label="Imagefilm Ihre Pflege Zirndorf – Kurzfassung"
+          />
+        </div>
+        <a class="film-section__link" data-reveal style="--motion-delay: 320ms" href="/standorte#film-voll">
+          Den ganzen Film ansehen
+        </a>
       </div>
     </section>
 
@@ -145,6 +177,14 @@ import Testimonials from "../components/Testimonials.astro";
     margin-top: 1rem;
   }
 
+  .about__image {
+    width: 100%;
+    height: auto;
+    margin-top: 2.5rem;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
   .section-heading {
     max-width: 82ch;
     margin-bottom: 2.5rem;
@@ -155,6 +195,44 @@ import Testimonials from "../components/Testimonials.astro";
     font-weight: 300;
     line-height: 1.8;
     margin: 0;
+  }
+
+  .film-section {
+    background: var(--white);
+  }
+
+  .film-section__inner {
+    max-width: 900px;
+    text-align: center;
+  }
+
+  .film-section__text {
+    max-width: 62ch;
+    margin-inline: auto;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .film-section__player {
+    margin-top: 2.5rem;
+  }
+
+  .film-section__link {
+    display: inline-block;
+    margin-top: 1.75rem;
+    color: var(--teal-ink);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: color 160ms ease;
+  }
+
+  .film-section__link:hover,
+  .film-section__link:focus-visible {
+    color: var(--teal-dark);
   }
 
   .jobs-strip {
