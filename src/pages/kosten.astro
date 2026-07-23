@@ -1,0 +1,231 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { locations } from "../data/locations";
+
+const main = locations[0];
+const phoneHref = `tel:${main.phone.replace(/\D/g, "")}`;
+
+// Kosten & Kassen — bewusst dauerhaft formuliert: keine Beträge, keine
+// jahresgebundenen Sätze (die altern und werden falsch). Die Seite erklärt
+// das Prinzip; alles Konkrete (Zahlen, Anspruch, Eigenanteil) verweist auf
+// das kostenlose persönliche Gespräch. Anrede: Sie.
+const blocks = [
+  {
+    title: "Der Pflegegrad ist die Grundlage",
+    body: "Wie viel Unterstützung Ihnen zusteht, richtet sich nach dem Pflegegrad. Es gibt fünf Pflegegrade — je höher der Bedarf, desto mehr trägt die Pflegekasse bei. Den Pflegegrad stellt der Medizinische Dienst nach einem Besuch fest; beantragt wird er bei Ihrer Pflegekasse. Wenn Sie noch keinen Pflegegrad haben, unterstützen wir Sie gern bei den ersten Schritten.",
+  },
+  {
+    title: "Was die Kasse übernimmt",
+    body: "Einen großen Teil der Kosten übernimmt in der Regel die Pflege- oder Krankenkasse — je nach Pflegegrad und den Leistungen, die Sie brauchen. Je nach Situation bleibt ein Eigenanteil. Wie hoch dieser ausfällt, hängt von Ihrem persönlichen Bedarf ab. Deshalb nennen wir konkrete Zahlen erst nach einem Gespräch — dann aber ehrlich und nachvollziehbar.",
+  },
+  {
+    title: "Pflegekasse und Krankenkasse",
+    body: "Häufig spielen zwei Bereiche zusammen: Pflegerische Leistungen — etwa Hilfe bei der Körperpflege und im Alltag — laufen über die Pflegekasse und setzen in der Regel einen Pflegegrad voraus. Medizinische Behandlungspflege — etwa Medikamente, Injektionen oder Verbände — verordnet Ihr Arzt; die Kosten trägt weitgehend die Krankenkasse, auch ohne Pflegegrad (in der Regel bleibt eine gesetzliche Zuzahlung).",
+  },
+  {
+    title: "Mehr als Pflege am Bett",
+    body: "Daneben gibt es Leistungen wie den Entlastungsbetrag oder die Verhinderungspflege, mit denen sich Betreuung im Alltag und eine Auszeit für pflegende Angehörige finanzieren lassen. Was davon in Ihrem Fall über die Kasse läuft, schauen wir uns gemeinsam an.",
+  },
+];
+---
+
+<BaseLayout
+  title="Kosten & Kassen"
+  description="Was ambulante Pflege kostet, verständlich erklärt: Pflegegrade, was die Pflege- und Krankenkasse übernimmt, Eigenanteil und direkte Abrechnung mit Ihrer Kasse. Für Zahlen: kostenlose Beratung."
+>
+  <Nav />
+  <main id="main" tabindex="-1" class="page-main">
+    <section class="section kosten">
+      <div class="container page-intro">
+        <p class="eyebrow" data-reveal>Kosten & Kassen</p>
+        <h1 data-reveal style="--motion-delay: 80ms">Was Pflege kostet — verständlich erklärt</h1>
+        <p data-reveal style="--motion-delay: 160ms">
+          Pflege soll niemanden überfordern — auch finanziell nicht. Vieles klingt komplizierter, als es ist. Hier
+          erklären wir die Grundlagen in Ruhe. Was in Ihrem Fall konkret auf Sie zukommt, besprechen wir kostenlos und
+          persönlich.
+        </p>
+      </div>
+
+      <div class="container kosten__grid-wrap">
+        <div class="kosten-grid">
+          {
+            blocks.map((block, index) => (
+              <article class="card kosten-card" data-reveal style={`--motion-delay: ${(index % 2) * 120}ms`}>
+                <h2>{block.title}</h2>
+                <p>{block.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="container kosten__billing">
+        <div class="card kosten-billing" data-reveal>
+          <svg aria-hidden="true" viewBox="0 0 32 32">
+            <path d="M6 7h20v18H6z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+            <path d="M11 15l3.5 3.5L22 11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div>
+            <h2>Wir rechnen direkt mit Ihrer Kasse ab</h2>
+            <p>
+              Um die Abrechnung müssen Sie sich nicht kümmern. Die von der Kasse übernommenen Leistungen rechnen wir
+              direkt mit Ihrer Pflege- oder Krankenkasse ab. Das nimmt Ihnen Papierkram ab und macht die Kosten
+              überschaubar.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container kosten__cta">
+        <div class="card kosten-cta" data-reveal>
+          <div>
+            <h2>Was bleibt für mich übrig?</h2>
+            <p>
+              Diese Frage lässt sich seriös nur mit Blick auf Ihren Pflegegrad und Ihren tatsächlichen Bedarf
+              beantworten. In einem kostenlosen Erstgespräch bei Ihnen zu Hause rechnen wir das offen mit Ihnen durch —
+              ohne Verpflichtung.
+            </p>
+          </div>
+          <a class="btn-primary" href={phoneHref}>{main.phone} anrufen</a>
+        </div>
+        <p class="kosten__faq" data-reveal>
+          Kurz und knapp? Die wichtigsten Punkte beantworten wir auch in unseren
+          <a href="/kontakt#faq">häufigen Fragen</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .kosten__grid-wrap {
+    margin-top: 2.5rem;
+  }
+
+  .kosten-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 720px) {
+    .kosten-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .kosten-card {
+    padding: 2rem;
+  }
+
+  .kosten-card h2 {
+    margin: 0 0 0.85rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .kosten-card p {
+    margin: 0;
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .kosten__billing {
+    margin-top: 1.25rem;
+  }
+
+  .kosten-billing {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2.25rem;
+    background: var(--teal-light);
+    border-color: color-mix(in srgb, var(--teal) 22%, transparent);
+  }
+
+  .kosten-billing svg {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    color: var(--teal-ink);
+  }
+
+  .kosten-billing h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .kosten-billing p {
+    margin: 0;
+    max-width: 68ch;
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .kosten__cta {
+    margin-top: 3rem;
+  }
+
+  .kosten-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2.25rem;
+  }
+
+  .kosten-cta h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .kosten-cta p {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .kosten-cta .btn-primary {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 720px) {
+    .kosten-billing {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .kosten-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .kosten-cta .btn-primary {
+      width: 100%;
+    }
+  }
+
+  .kosten__faq {
+    margin-top: 2rem;
+    color: var(--text-mid);
+  }
+
+  .kosten__faq a {
+    color: var(--teal-ink);
+    font-weight: 500;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+    transition: color 160ms ease;
+  }
+
+  .kosten__faq a:hover,
+  .kosten__faq a:focus-visible {
+    color: var(--teal-dark);
+  }
+</style>
