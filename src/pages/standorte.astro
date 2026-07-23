@@ -19,8 +19,8 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
         <p class="eyebrow" data-reveal>Unsere Standorte</p>
         <h1 data-reveal style="--motion-delay: 80ms">Ambulante Pflege in Ihrer Nähe</h1>
         <p data-reveal style="--motion-delay: 160ms">
-          Unsere Standorte sind in Bayern für Sie da. Verlässlich, persönlich und zugelassen bei allen Kranken- und
-          Pflegekassen.
+          Unsere Standorte sind in Bayern für Sie da. Verlässlich, persönlich und zugelassen bei allen
+          <span class="nowrap">Kranken- und Pflegekassen</span>.
         </p>
       </div>
 
@@ -102,6 +102,10 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 </BaseLayout>
 
 <style>
+  .nowrap {
+    white-space: nowrap;
+  }
+
   .locations__grid-wrap {
     margin-top: 2.5rem;
   }
