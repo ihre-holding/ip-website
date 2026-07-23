@@ -95,6 +95,28 @@ const previewImageUrl = new URL(ogImage, siteOrigin).toString();
     <a class="skip-link" href="#main">Zum Inhalt springen</a>
     <slot />
     <MotionInit />
+    <script is:inline>
+      // Zuverlässiger Anker-Sprung beim initialen Laden einer URL mit #hash
+      // (z. B. /kontakt#faq, /#ueber-uns, /standorte#film-voll). Grund: das
+      // globale scroll-behavior: smooth zusammen mit dem nachträglichen
+      // Font-Swap lässt den nativen Sprung beim Seitenaufruf teils oben landen.
+      // Greift nur beim ersten Laden mit vorhandenem Hash; normale Klicks auf
+      // der Seite bleiben unberührt.
+      (function () {
+        var hash = location.hash;
+        if (!hash || hash === "#") return;
+        var id = decodeURIComponent(hash.slice(1));
+        function jump() {
+          var el = document.getElementById(id);
+          if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
+        }
+        var fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+        fonts.then(function () {
+          requestAnimationFrame(jump);
+        });
+        window.addEventListener("load", jump);
+      })();
+    </script>
   </body>
 </html>
 
