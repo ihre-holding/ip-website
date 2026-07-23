@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: "Kann ich Sie auch außerhalb der Telefonzeiten erreichen?",
-    a: "Für neue Anfragen erreichen Sie uns am besten während unserer Telefonzeiten (Montag bis Freitag, 8–12 und 14–17 Uhr). Außerhalb dieser Zeiten schreiben Sie uns gern eine E-Mail — wir melden uns zurück. Die vereinbarte Pflege unserer Patientinnen und Patienten läuft selbstverständlich nach einem festen Plan weiter, auch an Wochenenden und Feiertagen, wenn sie gebraucht wird.",
+    a: "Für neue Anfragen erreichen Sie uns am besten während unserer Telefonzeiten (Montag bis Freitag, 8–12 und 14–17 Uhr). Außerhalb dieser Zeiten schreiben Sie uns gern eine E-Mail — wir melden uns zurück. Die Menschen, die wir bereits versorgen, sind nie allein: Sie erhalten von uns eine Notrufnummer, die auch außerhalb unserer Bürozeiten besetzt ist. Und die vereinbarte Pflege läuft ohnehin nach einem festen Plan weiter, auch an Wochenenden und Feiertagen, wenn sie gebraucht wird.",
   },
 ];
 
@@ -103,7 +103,7 @@ const faqSchemaJson = JSON.stringify(faqSchema).replace(/</g, "\\u003c");
       </div>
     </section>
 
-    <section class="section faq" aria-labelledby="faq-title">
+    <section class="section faq" id="faq" aria-labelledby="faq-title">
       <div class="container">
         <div class="faq__head">
           <p class="eyebrow" data-reveal>Häufige Fragen</p>
@@ -199,6 +199,7 @@ const faqSchemaJson = JSON.stringify(faqSchema).replace(/</g, "\\u003c");
 
   .faq {
     background: var(--warm-grey);
+    scroll-margin-top: 90px;
   }
 
   .faq__head {
