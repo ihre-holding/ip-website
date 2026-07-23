@@ -2,11 +2,91 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import { locations } from "../data/locations";
+
+const main = locations[0];
+const phoneHref = `tel:${main.phone.replace(/\D/g, "")}`;
+
+// Leistungen als vertiefte Sektionen. Anrede: Sie.
+// Grundhaltung: Wir beschreiben, WAS wir tun ("wir bieten"), nicht,
+// wer welche Leistung erbringen darf. Alles Konkrete zu Anspruch, Kosten
+// und Eignung klären wir im persönlichen Gespräch — bewusst ohne Beträge
+// oder verbindliche Zusagen auf der Seite (die altern).
+const services = [
+  {
+    id: "grundpflege",
+    title: "Grundpflege",
+    lead: "Hilfe bei dem, was im Alltag schwerer geworden ist — verlässlich und mit Respekt vor Ihrer Selbstständigkeit.",
+    items: [
+      "Körperpflege: Waschen, Duschen, Baden, Haut- und Mundpflege",
+      "Hilfe beim An- und Auskleiden",
+      "Unterstützung beim Essen und Trinken",
+      "Mobilität: Aufstehen, Bewegen, sicheres Umlagern",
+      "Unterstützung beim Toilettengang und bei der Kontinenzversorgung",
+    ],
+  },
+  {
+    id: "behandlungspflege",
+    title: "Behandlungspflege",
+    lead: "Die medizinischen Maßnahmen, die Ihre Ärztin oder Ihr Arzt verordnet, führen wir bei Ihnen zu Hause durch.",
+    items: [
+      "Medikamente stellen und verabreichen",
+      "Injektionen, zum Beispiel Insulin",
+      "Blutdruck- und Blutzuckerkontrolle",
+      "Wundversorgung und Verbandwechsel",
+      "An- und Ausziehen von Kompressionsstrümpfen",
+    ],
+  },
+  {
+    id: "betreuung",
+    title: "Betreuung & Entlastung",
+    lead: "Manchmal ist Zeit das Wichtigste — für die Menschen, die wir versorgen, und für ihre Angehörigen.",
+    items: [
+      "Gemeinsam Zeit verbringen: vorlesen, spazieren gehen, kochen",
+      "Begleitung zu Terminen, Einkäufen und Spaziergängen",
+      "Unterstützung im Haushalt",
+      "Entlastung für pflegende Angehörige",
+    ],
+    note: "Je nach Pflegegrad steht für Betreuungs- und Entlastungsleistungen ein monatlicher Betrag zur Verfügung. Was in Ihrem Fall über die Kasse läuft, klären wir gemeinsam mit Ihnen.",
+  },
+  {
+    id: "verhinderungspflege",
+    title: "Verhinderungspflege",
+    lead: "Wenn die Angehörigen, die sonst pflegen, einmal eine Pause brauchen, springen wir ein.",
+    items: [
+      "Vertretung, wenn die Hauptpflegeperson im Urlaub, krank oder verhindert ist",
+      "Stunden- oder tageweise, ganz nach Ihrem Bedarf",
+      "Damit die vertraute Pflege zu Hause nahtlos weitergeht",
+    ],
+    note: "Unter bestimmten Voraussetzungen beteiligt sich die Pflegekasse an den Kosten. Ob und wie das für Sie möglich ist, besprechen wir persönlich.",
+  },
+  {
+    id: "beratungseinsatz",
+    title: "Beratungseinsätze",
+    lead: "Wer Pflegegeld ab Pflegegrad 2 bezieht und sich zu Hause pflegen lässt, für den ist ein regelmäßiger Beratungsbesuch vorgesehen.",
+    items: [
+      "Diesen Besuch übernehmen wir gern für Sie",
+      "Kostenlos — ohne dass Sie uns danach für weitere Leistungen beauftragen müssen",
+      "Wir schauen, ob alles gut läuft, und geben praktische Tipps für den Alltag",
+    ],
+  },
+];
+
+const icons: Record<string, string> = {
+  grundpflege: '<circle cx="16" cy="10" r="5" /><path d="M7 28c.8-6 4-10 9-10s8.2 4 9 10H7Z" />',
+  behandlungspflege:
+    '<rect x="14" y="6" width="4" height="20" rx="1" /><rect x="6" y="14" width="20" height="4" rx="1" /><path d="M8 7a4 4 0 0 1 8 0v1h-3V7a1 1 0 0 0-2 0v4a7 7 0 0 1-7 7H3v-3h1a4 4 0 0 0 4-4V7Z" />',
+  betreuung: '<path d="M16 27S5 20.8 5 12.6A5.7 5.7 0 0 1 15 8.8l1 1 1-1a5.7 5.7 0 0 1 10 3.8C27 20.8 16 27 16 27Z" />',
+  verhinderungspflege:
+    '<path d="M16 4a12 12 0 1 0 12 12h-3a9 9 0 1 1-9-9V4Z" /><path d="M16 9v7l5 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />',
+  beratungseinsatz:
+    '<path d="M6 6h20v14H12l-6 5V6Z" /><circle cx="13" cy="13" r="1.6" fill="#FFFFFF" /><circle cx="19" cy="13" r="1.6" fill="#FFFFFF" />',
+};
 ---
 
 <BaseLayout
   title="Leistungen"
-  description="Leistungen des ambulanten Pflegedienstes in Zirndorf: Grundpflege, Behandlungspflege, Betreuung und Beratungseinsätze nach § 37.3 SGB XI."
+  description="Leistungen des ambulanten Pflegedienstes in Zirndorf: Grundpflege, Behandlungspflege, Betreuung und Entlastung, Verhinderungspflege und Beratungseinsätze — verlässlich und persönlich bei Ihnen zu Hause."
 >
   <Nav />
   <main id="main" tabindex="-1" class="page-main">
@@ -17,7 +97,8 @@ import Footer from "../components/Footer.astro";
           <h1 data-reveal style="--motion-delay: 80ms">Unsere Leistungen</h1>
           <p data-reveal style="--motion-delay: 160ms">
             Jeder Mensch braucht etwas anderes. Wir schauen gemeinsam mit Ihnen, was wirklich gebraucht wird, und sind
-            dann verlässlich da. Rufen Sie uns einfach an.
+            dann verlässlich da — bei Ihnen zu Hause. Was davon für Sie infrage kommt und was Ihre Kasse übernimmt,
+            besprechen wir in Ruhe. Rufen Sie uns einfach an.
           </p>
         </div>
         <figure class="leistungen-head__media" data-reveal style="--motion-delay: 240ms">
@@ -32,47 +113,41 @@ import Footer from "../components/Footer.astro";
 
       <div class="container services__grid-wrap">
         <div id="leistungen-grid">
-          <article class="service-card card" data-reveal style="--motion-delay: 0ms">
-            <svg aria-hidden="true" viewBox="0 0 32 32">
-              <circle cx="16" cy="10" r="5" />
-              <path d="M7 28c.8-6 4-10 9-10s8.2 4 9 10H7Z" />
-            </svg>
-            <h2>Grundpflege</h2>
-            <p>Waschen, Anziehen, Essen, Mobilität. Wir helfen bei dem, was im Alltag schwerer geworden ist, und kommen täglich zu Ihnen nach Hause.</p>
-          </article>
-
-          <article class="service-card card" data-reveal style="--motion-delay: 120ms">
-            <svg aria-hidden="true" viewBox="0 0 32 32">
-              <rect x="14" y="6" width="4" height="20" rx="1" />
-              <rect x="6" y="14" width="20" height="4" rx="1" />
-              <path d="M8 7a4 4 0 0 1 8 0v1h-3V7a1 1 0 0 0-2 0v4a7 7 0 0 1-7 7H3v-3h1a4 4 0 0 0 4-4V7Z" />
-            </svg>
-            <h2>Behandlungspflege</h2>
-            <p>Medikamente, Verbände, Blutdruck, Blutzucker. Wir führen die Maßnahmen durch, die Ihr Arzt verordnet hat, direkt bei Ihnen zu Hause.</p>
-          </article>
-
-          <article class="service-card card" data-reveal style="--motion-delay: 240ms">
-            <svg aria-hidden="true" viewBox="0 0 32 32">
-              <path d="M16 27S5 20.8 5 12.6A5.7 5.7 0 0 1 15 8.8l1 1 1-1a5.7 5.7 0 0 1 10 3.8C27 20.8 16 27 16 27Z" />
-            </svg>
-            <h2>Betreuung</h2>
-            <p>Vorlesen, spazieren gehen, gemeinsam kochen. Manchmal ist Begleitung das Wichtigste. Wir sind gerne dabei.</p>
-          </article>
-
-          <article class="service-card card" data-reveal style="--motion-delay: 360ms">
-            <svg aria-hidden="true" viewBox="0 0 32 32">
-              <path d="M6 6h20v14H12l-6 5V6Z" />
-              <circle cx="13" cy="13" r="1.6" fill="#FFFFFF" />
-              <circle cx="19" cy="13" r="1.6" fill="#FFFFFF" />
-            </svg>
-            <h2>Beratungseinsätze</h2>
-            <p>Wenn Sie Pflegegeld ab Pflegegrad 2 erhalten, kommen wir regelmäßig vorbei. Kostenlos, unverbindlich, direkt bei Ihnen zu Hause. Wir erklären Ihnen gerne, wie das funktioniert.</p>
-          </article>
+          {
+            services.map((service, index) => (
+              <article
+                class="service-card card"
+                id={service.id}
+                data-reveal
+                style={`--motion-delay: ${(index % 2) * 120}ms`}
+              >
+                <svg aria-hidden="true" viewBox="0 0 32 32" set:html={icons[service.id]} />
+                <h2>{service.title}</h2>
+                <p class="service-card__lead">{service.lead}</p>
+                <ul class="service-card__list">
+                  {service.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+                {service.note && <p class="service-card__note">{service.note}</p>}
+              </article>
+            ))
+          }
         </div>
       </div>
 
-      <div class="container services__faq">
-        <p data-reveal>
+      <div class="container services__cta">
+        <div class="card services__cta-card" data-reveal>
+          <div>
+            <h2>Nicht sicher, was Sie brauchen?</h2>
+            <p>
+              Das müssen Sie auch nicht allein herausfinden. In einem kostenlosen Erstgespräch bei Ihnen zu Hause
+              schauen wir gemeinsam, was hilft — und was davon über Ihre Kasse läuft. Ganz ohne Verpflichtung.
+            </p>
+          </div>
+          <a class="btn-primary" href={phoneHref}>{main.phone} anrufen</a>
+        </div>
+        <p class="services__faq" data-reveal>
           Sie haben Fragen zu Pflegegrad, Kosten oder zum Ablauf?
           <a href="/kontakt#faq">Antworten auf häufige Fragen</a>
         </p>
@@ -116,11 +191,126 @@ import Footer from "../components/Footer.astro";
     }
   }
 
-  .services__faq {
+  .services__grid-wrap {
+    margin-top: 2.5rem;
+  }
+
+  #leistungen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 720px) {
+    #leistungen-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .service-card svg {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 0.95rem;
+    fill: var(--teal);
+    color: var(--teal);
+  }
+
+  .service-card h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.65rem;
+    line-height: 1.15;
+  }
+
+  .service-card__lead {
+    margin: 0 0 1.1rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .service-card__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .service-card__list li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--text-mid);
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .service-card__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+
+  .service-card__note {
+    margin: 1.25rem 0 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .services__cta {
     margin-top: 3rem;
   }
 
-  .services__faq p {
+  .services__cta-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2.25rem;
+  }
+
+  .services__cta-card h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .services__cta-card p {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .services__cta-card .btn-primary {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 720px) {
+    .services__cta-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .services__cta-card .btn-primary {
+      width: 100%;
+    }
+  }
+
+  .services__faq {
+    margin-top: 2rem;
     color: var(--text-mid);
   }
 
@@ -135,43 +325,5 @@ import Footer from "../components/Footer.astro";
   .services__faq a:hover,
   .services__faq a:focus-visible {
     color: var(--teal-dark);
-  }
-
-  .services__grid-wrap {
-    margin-top: 2.5rem;
-  }
-
-  #leistungen-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-
-  @media (max-width: 600px) {
-    #leistungen-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .service-card {
-    padding: 2rem;
-  }
-
-  .service-card svg {
-    width: 22px;
-    height: 22px;
-    margin-bottom: 0.95rem;
-    fill: var(--teal);
-  }
-
-  .service-card h2 {
-    margin: 0 0 1rem;
-    font-size: 1.65rem;
-    line-height: 1.15;
-  }
-
-  .service-card p {
-    font-size: 0.96rem;
-    line-height: 1.65;
   }
 </style>
