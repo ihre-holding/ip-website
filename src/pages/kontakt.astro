@@ -134,6 +134,23 @@ const faqSchemaJson = JSON.stringify(faqSchema).replace(/</g, "\\u003c");
     </section>
   </main>
   <Footer />
+  <script is:inline>
+    // Zuverlässiger Sprung zu #faq beim Aufruf von /kontakt#faq.
+    // Ohne dies verwirft der Browser den Anker-Sprung beim initialen Laden
+    // (globales scroll-behavior: smooth) bzw. der Font-Swap verschiebt das Ziel.
+    (function () {
+      if (location.hash !== "#faq") return;
+      function jump() {
+        var el = document.getElementById("faq");
+        if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
+      }
+      var fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+      fonts.then(function () {
+        requestAnimationFrame(jump);
+      });
+      window.addEventListener("load", jump);
+    })();
+  </script>
 </BaseLayout>
 
 <style>
