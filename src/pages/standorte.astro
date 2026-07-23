@@ -58,26 +58,20 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
                   />
                 )
               }
+              {
+                location.slug === "zirndorf" && (
+                  <div class="location-card__film" id="film-voll">
+                    <p class="location-card__film-label">Unser Imagefilm</p>
+                    <VideoFilm
+                      src="/videos/Imagefilm_Vollfilm_web.mp4"
+                      poster="/videos/Imagefilm_Poster.jpg"
+                      label="Imagefilm Ihre Pflege Zirndorf – vollständige Fassung"
+                    />
+                  </div>
+                )
+              }
             </article>
           ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section film-full" id="film-voll" aria-labelledby="film-voll-title">
-      <div class="container film-full__inner">
-        <p class="eyebrow" data-reveal>Unser Imagefilm</p>
-        <h2 data-reveal id="film-voll-title" style="--motion-delay: 80ms">Ihre Pflege in Zirndorf</h2>
-        <p class="film-full__text" data-reveal style="--motion-delay: 160ms">
-          Der vollständige Film über unseren Pflegedienst: unser Team, unser Alltag und die Menschen, für die wir da
-          sind.
-        </p>
-        <div class="film-full__player" data-reveal style="--motion-delay: 240ms">
-          <VideoFilm
-            src="/videos/Imagefilm_Vollfilm_web.mp4"
-            poster="/videos/Imagefilm_Poster.jpg"
-            label="Imagefilm Ihre Pflege Zirndorf – vollständige Fassung"
-          />
         </div>
       </div>
     </section>
@@ -160,24 +154,18 @@ const phoneHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
     line-height: 1.6;
   }
 
-  .film-full {
-    background: var(--warm-grey);
+  .location-card__film {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
   }
 
-  .film-full__inner {
-    max-width: 900px;
-    text-align: center;
-  }
-
-  .film-full__text {
-    max-width: 62ch;
-    margin-inline: auto;
-    font-weight: 300;
-    line-height: 1.8;
-  }
-
-  .film-full__player {
-    margin-top: 2.5rem;
+  .location-card__film-label {
+    margin: 0 0 0.85rem;
+    color: var(--teal-ink);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
   }
 
   @media (max-width: 720px) {
