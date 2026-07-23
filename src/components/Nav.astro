@@ -27,6 +27,7 @@ const isKarriere = Astro.url.pathname.startsWith("/jobs");
       <a class:list={{ "is-active": isHome }} href="/" aria-current={isHome ? "page" : undefined}>
         Startseite
       </a>
+      <a href={isHome ? "#ueber-uns" : "/#ueber-uns"}>Über uns</a>
       <a
         class:list={{ "is-active": isLeistungen }}
         href="/leistungen"
@@ -301,6 +302,10 @@ const isKarriere = Astro.url.pathname.startsWith("/jobs");
 
       .site-nav__menu.is-open > a:nth-child(4) {
         animation-delay: 190ms;
+      }
+
+      .site-nav__menu.is-open > a:nth-child(5) {
+        animation-delay: 240ms;
       }
     }
 

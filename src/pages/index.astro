@@ -34,47 +34,27 @@ import VideoFilm from "../components/VideoFilm.astro";
       </div>
     </section>
 
-    <section class="about section" id="ueber-uns">
+    <section class="about section" id="ueber-uns" aria-labelledby="ueber-uns-title">
       <div class="about__inner container">
         <p class="eyebrow" data-reveal>Über uns</p>
-        <h2 data-reveal style="--motion-delay: 80ms">Seit 1997 für Menschen da</h2>
+        <h2 id="ueber-uns-title" data-reveal style="--motion-delay: 80ms">Seit 1997 für Menschen da</h2>
         <p data-reveal style="--motion-delay: 160ms">
           Seit 1997 sind wir in Bayern für Menschen da. Zu Hause, in vertrauter Umgebung, so lange wie möglich. Das war
           unser Ziel von Anfang an.
         </p>
         <p data-reveal style="--motion-delay: 240ms">
           Wir sind bei allen Kranken- und Pflegekassen zugelassen und kommen direkt zu Ihnen nach Hause. Ob tägliche
-          Pflege, medizinische Versorgung oder eine verlässliche Begleitung im Alltag.
+          Pflege, medizinische Versorgung oder eine verlässliche Begleitung im Alltag. Ein kurzer Einblick in unseren
+          Alltag, die Menschen, die wir begleiten, und das Team, das jeden Tag für sie da ist:
         </p>
-        <img
-          class="about__image"
-          data-reveal
-          style="--motion-delay: 320ms"
-          src="/images/pflege-garten.jpg"
-          alt="Pflegekraft von Ihre Pflege begleitet eine Klientin im Garten"
-          width="1920"
-          height="892"
-          loading="lazy"
-        />
-      </div>
-    </section>
-
-    <section class="film-section section" id="film" aria-labelledby="film-title">
-      <div class="film-section__inner container">
-        <p class="eyebrow" data-reveal>Ihre Pflege im Film</p>
-        <h2 id="film-title" data-reveal style="--motion-delay: 80ms">Lernen Sie uns kennen</h2>
-        <p class="film-section__text" data-reveal style="--motion-delay: 160ms">
-          Ein kurzer Einblick in unseren Alltag: die Menschen, die wir begleiten, und das Team, das jeden Tag für sie da
-          ist.
-        </p>
-        <div class="film-section__player" data-reveal style="--motion-delay: 240ms">
+        <div class="about__film" data-reveal style="--motion-delay: 320ms">
           <VideoFilm
             src="/videos/Imagefilm_Highlight_40s.mp4"
             poster="/videos/Imagefilm_Poster.jpg"
             label="Imagefilm Ihre Pflege Zirndorf – Kurzfassung"
           />
         </div>
-        <a class="film-section__link" data-reveal style="--motion-delay: 320ms" href="/standorte#film-voll">
+        <a class="about__film-link" data-reveal style="--motion-delay: 400ms" href="/standorte#film-voll">
           Den ganzen Film ansehen
         </a>
       </div>
@@ -177,47 +157,11 @@ import VideoFilm from "../components/VideoFilm.astro";
     margin-top: 1rem;
   }
 
-  .about__image {
-    width: 100%;
-    height: auto;
-    margin-top: 2.5rem;
-    border-radius: 12px;
-    object-fit: cover;
-  }
-
-  .section-heading {
-    max-width: 82ch;
-    margin-bottom: 2.5rem;
-  }
-
-  .section-heading p:not(.eyebrow) {
-    max-width: 76ch;
-    font-weight: 300;
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  .film-section {
-    background: var(--white);
-  }
-
-  .film-section__inner {
-    max-width: 900px;
-    text-align: center;
-  }
-
-  .film-section__text {
-    max-width: 62ch;
-    margin-inline: auto;
-    font-weight: 300;
-    line-height: 1.8;
-  }
-
-  .film-section__player {
+  .about__film {
     margin-top: 2.5rem;
   }
 
-  .film-section__link {
+  .about__film-link {
     display: inline-block;
     margin-top: 1.75rem;
     color: var(--teal-ink);
@@ -230,9 +174,21 @@ import VideoFilm from "../components/VideoFilm.astro";
     transition: color 160ms ease;
   }
 
-  .film-section__link:hover,
-  .film-section__link:focus-visible {
+  .about__film-link:hover,
+  .about__film-link:focus-visible {
     color: var(--teal-dark);
+  }
+
+  .section-heading {
+    max-width: 82ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .section-heading p:not(.eyebrow) {
+    max-width: 76ch;
+    font-weight: 300;
+    line-height: 1.8;
+    margin: 0;
   }
 
   .jobs-strip {
