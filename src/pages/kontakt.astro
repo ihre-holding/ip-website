@@ -1,0 +1,300 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { locations, companyAddress, companyEmail } from "../data/locations";
+
+const main = locations[0];
+const phoneHref = `tel:${main.phone.replace(/\D/g, "")}`;
+const openingHours = "Montag bis Freitag, 8–12 und 14–17 Uhr";
+
+// Häufige Fragen von Angehörigen und Interessenten (Anrede: Sie).
+// Antworten bewusst ohne verbindliche Preiszusagen und ohne Heilsversprechen.
+const faqs = [
+  {
+    q: "Wie schnell können Sie mit der Pflege beginnen?",
+    a: "Rufen Sie uns einfach an — wir vereinbaren zeitnah ein kostenloses und unverbindliches Erstgespräch bei Ihnen zu Hause. Wann die Versorgung genau startet, hängt vom Bedarf und den freien Kapazitäten ab. Das besprechen wir offen und ehrlich mit Ihnen.",
+  },
+  {
+    q: "In welchem Gebiet sind Sie für mich da?",
+    a: "Wir kommen zu Ihnen nach Hause — in Zirndorf, Oberasbach und Umgebung. Ob Ihr Wohnort dazugehört, klären wir gern kurz am Telefon.",
+  },
+  {
+    q: "Was kostet mich die Pflege?",
+    a: "Das hängt von Ihrem Pflegegrad und den Leistungen ab, die Sie brauchen. Einen großen Teil übernimmt in der Regel die Pflege- oder Krankenkasse; je nach Situation bleibt ein Eigenanteil. Wir rechnen direkt mit Ihrer Kasse ab und erklären Ihnen im persönlichen Gespräch, womit Sie konkret rechnen können. Verbindliche Zahlen nennen wir erst nach einer Beratung.",
+  },
+  {
+    q: "Brauche ich einen Pflegegrad?",
+    a: "Für pflegerische Leistungen über die Pflegekasse ist in der Regel ein Pflegegrad nötig. Medizinische Behandlungspflege — etwa Medikamentengabe, Injektionen oder Verbandswechsel — verordnet Ihr Arzt; die Krankenkasse übernimmt die Kosten weitgehend, auch ohne Pflegegrad (in der Regel bleibt eine gesetzliche Zuzahlung). Wenn Sie noch keinen Pflegegrad haben, unterstützen wir Sie gern bei den ersten Schritten.",
+  },
+  {
+    q: "Sind Sie bei allen Kassen zugelassen?",
+    a: "Ja. Wir sind bei allen Kranken- und Pflegekassen zugelassen. Sie können uns unabhängig von Ihrer Kasse beauftragen.",
+  },
+  {
+    q: "Was ist ein Beratungseinsatz?",
+    a: "Wenn Sie Pflegegeld ab Pflegegrad 2 beziehen und sich zu Hause selbst oder von Angehörigen pflegen lassen, ist ein regelmäßiger Beratungsbesuch vorgesehen. Diesen Besuch übernehmen wir gern für Sie — kostenlos und ohne dass Sie uns danach für weitere Leistungen beauftragen müssen. Wir schauen, ob alles gut läuft, und geben praktische Tipps für den Alltag.",
+  },
+  {
+    q: "Wie fange ich am besten an?",
+    a: "Am einfachsten mit einem Anruf. Wir hören zu, vereinbaren ein kostenloses Erstgespräch bei Ihnen zu Hause und schauen gemeinsam, was Sie brauchen. Eine Verpflichtung gehen Sie dabei nicht ein.",
+  },
+  {
+    q: "Kann ich Sie auch außerhalb der Telefonzeiten erreichen?",
+    a: "Für neue Anfragen erreichen Sie uns am besten während unserer Telefonzeiten (Montag bis Freitag, 8–12 und 14–17 Uhr). Außerhalb dieser Zeiten schreiben Sie uns gern eine E-Mail — wir melden uns zurück. Die vereinbarte Pflege unserer Patientinnen und Patienten läuft selbstverständlich nach einem festen Plan weiter, auch an Wochenenden und Feiertagen, wenn sie gebraucht wird.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+const faqSchemaJson = JSON.stringify(faqSchema).replace(/</g, "\\u003c");
+---
+
+<BaseLayout
+  title="Kontakt"
+  description="So erreichen Sie Ihre Pflege in Zirndorf: Telefon 0911 9606030, E-Mail info@ihre-pflege.de, Telefonzeiten Mo–Fr 8–12 und 14–17 Uhr. Plus Antworten auf häufige Fragen."
+>
+  <script type="application/ld+json" slot="head" is:inline set:html={faqSchemaJson} />
+  <Nav />
+  <main id="main" tabindex="-1" class="page-main">
+    <section class="section contact">
+      <div class="container page-intro">
+        <p class="eyebrow" data-reveal>Kontakt</p>
+        <h1 data-reveal style="--motion-delay: 80ms">So erreichen Sie uns</h1>
+        <p data-reveal style="--motion-delay: 160ms">
+          Sie haben Fragen zur Pflege für sich selbst oder einen Angehörigen? Rufen Sie uns an oder schreiben Sie uns.
+          Wir nehmen uns Zeit für Sie und beraten Sie in Ruhe.
+        </p>
+      </div>
+
+      <div class="container contact__grid-wrap">
+        <div class="card contact-card" data-reveal>
+          <div class="contact-card__row">
+            <span class="contact-card__label">Telefon</span>
+            <a class="contact-card__phone" href={phoneHref}>{main.phone}</a>
+          </div>
+          <div class="contact-card__row">
+            <span class="contact-card__label">Telefonzeiten</span>
+            <p class="contact-card__value">{openingHours}</p>
+          </div>
+          <div class="contact-card__row">
+            <span class="contact-card__label">E-Mail</span>
+            <a class="contact-card__email" href={`mailto:${companyEmail}`}>{companyEmail}</a>
+          </div>
+          <div class="contact-card__row">
+            <span class="contact-card__label">Adresse</span>
+            <p class="contact-card__value">{companyAddress}</p>
+          </div>
+          <p class="contact-card__note">
+            Ein Kontaktformular gibt es bei uns bewusst nicht. Ein Anruf oder eine E-Mail genügt — dann sprechen Sie
+            direkt mit einem Menschen, der Ihnen weiterhilft.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="faq__head">
+          <p class="eyebrow" data-reveal>Häufige Fragen</p>
+          <h2 id="faq-title" data-reveal style="--motion-delay: 80ms">Fragen von Angehörigen und Interessenten</h2>
+        </div>
+        <div class="faq__list" data-reveal style="--motion-delay: 160ms">
+          {
+            faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__q">
+                  <span>{item.q}</span>
+                  <svg class="faq-item__icon" aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </summary>
+                <div class="faq-item__a">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))
+          }
+        </div>
+        <p class="faq__foot" data-reveal>
+          Ihre Frage war nicht dabei? Rufen Sie uns an unter <a href={phoneHref}>{main.phone}</a> — wir helfen Ihnen
+          gerne weiter.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .contact__grid-wrap {
+    margin-top: 2.5rem;
+  }
+
+  .contact-card {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 620px;
+    padding: 2.25rem;
+  }
+
+  .contact-card__row {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .contact-card__label {
+    color: var(--teal-ink);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .contact-card__value {
+    margin: 0;
+    color: var(--text-mid);
+  }
+
+  .contact-card__phone {
+    width: fit-content;
+    color: var(--teal-ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-style: italic;
+    line-height: 1.2;
+  }
+
+  .contact-card__email {
+    width: fit-content;
+    color: var(--teal-ink);
+    font-weight: 500;
+  }
+
+  .contact-card__phone:hover,
+  .contact-card__phone:focus-visible,
+  .contact-card__email:hover,
+  .contact-card__email:focus-visible {
+    color: var(--teal-dark);
+  }
+
+  .contact-card__note {
+    margin: 0.25rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-mid);
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .faq {
+    background: var(--warm-grey);
+  }
+
+  .faq__head {
+    max-width: 82ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .faq__list {
+    display: grid;
+    gap: 0.85rem;
+    max-width: 860px;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--white);
+  }
+
+  .faq-item__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.35rem 1.5rem;
+    color: var(--navy);
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.35;
+    list-style: none;
+  }
+
+  .faq-item__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__icon {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: var(--teal-ink);
+    stroke-width: 2;
+    stroke-linecap: round;
+    transition: transform 200ms ease;
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-item__a {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .faq-item__a p {
+    margin: 0;
+    max-width: 74ch;
+    line-height: 1.75;
+  }
+
+  .faq__foot {
+    margin: 2.5rem 0 0;
+    color: var(--text-mid);
+  }
+
+  .faq__foot a {
+    color: var(--teal-ink);
+    font-weight: 500;
+  }
+
+  .faq__foot a:hover,
+  .faq__foot a:focus-visible {
+    color: var(--teal-dark);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item__icon {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .contact-card {
+      padding: 1.75rem;
+    }
+
+    .faq-item__q {
+      padding: 1.15rem 1.2rem;
+      font-size: 1.05rem;
+    }
+
+    .faq-item__a {
+      padding: 0 1.2rem 1.25rem;
+    }
+  }
+</style>

@@ -10,6 +10,7 @@ const staticPaths = [
   "/leistungen/",
   "/standorte/",
   "/jobs/",
+  "/kontakt/",
   "/impressum/",
   "/datenschutz/",
 ];

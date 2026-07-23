@@ -3,6 +3,7 @@ const isHome = Astro.url.pathname === "/";
 const isLeistungen = Astro.url.pathname.startsWith("/leistungen");
 const isStandorte = Astro.url.pathname.startsWith("/standorte");
 const isKarriere = Astro.url.pathname.startsWith("/jobs");
+const isKontakt = Astro.url.pathname.startsWith("/kontakt");
 ---
 
 <header class:list={["site-nav", { "is-scrolled": !isHome }]} data-nav data-home={String(isHome)}>
@@ -40,6 +41,9 @@ const isKarriere = Astro.url.pathname.startsWith("/jobs");
       </a>
       <a class:list={{ "is-active": isKarriere }} href="/jobs" aria-current={isKarriere ? "page" : undefined}>
         Karriere
+      </a>
+      <a class:list={{ "is-active": isKontakt }} href="/kontakt" aria-current={isKontakt ? "page" : undefined}>
+        Kontakt
       </a>
       <a
         class="btn-primary site-nav__cta"
@@ -306,6 +310,10 @@ const isKarriere = Astro.url.pathname.startsWith("/jobs");
 
       .site-nav__menu.is-open > a:nth-child(5) {
         animation-delay: 240ms;
+      }
+
+      .site-nav__menu.is-open > a:nth-child(6) {
+        animation-delay: 290ms;
       }
     }
 
